@@ -27,15 +27,15 @@ class MidiPad
                 domElement.appendChild touch.domElement
                 @touchs.push touch
 
-        @nextID = 0
-
         Interactions.onKeyDown.add(@onKeyDown)
         document.body.appendChild(domElement)
         return
 
-    add:(midiTouch)=>
-        @touchs[@nextID].activate(midiTouch)
-        @nextID++
+    add:(letter,altKey=false,midiTouch)=>
+        for t in @touchs
+            if t.letter == letter && t.altKey == altKey
+                t.activate(midiTouch)
+                return
         return
 
     onKeyDown:(e)=>

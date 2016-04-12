@@ -78,10 +78,10 @@ class Main
 		VJ.onBeat.add(@onBeat)
 		Midi.onInit.add(()=>
 			MidiPad = new MidiPad()
-			MidiPad.add VJ.add(@custom.shader.uniforms.bwRatio,'value',81,Midi.PAD,true)
-			MidiPad.add VJ.add(@custom.shader.uniforms.invertRatio,'value',82,Midi.PAD,true)
-			MidiPad.add VJ.add(@custom.shader.uniforms.mirrorX,'value',83,Midi.PAD,true)
-			MidiPad.add VJ.add(@custom.shader.uniforms.mirrorY,'value',84,Midi.PAD,true)
+			MidiPad.add '1', false, VJ.add(@custom.shader.uniforms.bwRatio,'value',81,Midi.PAD,true)
+			MidiPad.add '2', false, VJ.add(@custom.shader.uniforms.invertRatio,'value',82,Midi.PAD,true)
+			MidiPad.add '3', false, VJ.add(@custom.shader.uniforms.mirrorX,'value',83,Midi.PAD,true)
+			MidiPad.add '4', false, VJ.add(@custom.shader.uniforms.mirrorY,'value',84,Midi.PAD,true)
 		)
 		@audioTexture = new AudioTexture(VJ.binCount,256)
 
