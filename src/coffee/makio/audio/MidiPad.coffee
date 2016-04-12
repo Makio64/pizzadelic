@@ -54,7 +54,6 @@ class PadTouch
         @altKey = false
         @ctrlKey = false
         @domElement = document.createElement('div')
-        @domElement.className = 'gui-pad'
         @domElement.addEventListener('mouseup',@onClickBt)
         @domElement.innerHTML = @letter
         @domElement.style.backgroundColor = '#F00'

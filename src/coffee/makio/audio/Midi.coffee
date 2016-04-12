@@ -15,6 +15,9 @@ class Midi
 	@PAD = {in:'879598748',out:'-324232190',type:'pad'}
 
 	@init=()=>
+		@domElement = document.createElement('div')
+		@domElement.className = 'midi'
+		document.body.appendChild @domElement
 		if(navigator.requestMIDIAccess)
 			navigator.requestMIDIAccess({sysex: false}).then(@onMIDISuccess, @onMIDIFailure)
 		else
@@ -66,8 +69,7 @@ class Midi
 		s += 'type: '+type+'<br />'
 		s += 'note: '+note+'<br />'
 		s += 'velocity: '+velocity+'<br />'
-		div = document.querySelector('#content')
-		div.innerHTML = s
+		@domElement.innerHTML = s
 		console.log("NOTE:",note)
 		@onMessage.dispatch({id:id,data:data,cmd:cmd,channel:channel,type:type,note:note,velocity:velocity})
 		return
