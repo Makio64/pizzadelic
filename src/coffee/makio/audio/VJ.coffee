@@ -59,7 +59,7 @@ class VJ
 		obj = {x:1,y:1}
 		@add(obj,'x',84,Midi.XL1).minMax(0,110).onChange((v)=>
 			v = Math.floor(v)
-			console.log(v)
+			# console.log(v)
 			Midi.allButton(v,Midi.PAD)
 		)
 
@@ -194,12 +194,14 @@ class VJBooleanController extends VJNumberController
 		@isOn = false
 		Midi.amberLed(@midi,@id)
 		@targetValue = 0
+		@_onChange.dispatch(@targetValue,@)
 		return @
 
 	switchOn:()=>
 		@isOn = true
 		Midi.yellowLed(@midi,@id)
 		@targetValue = 1
+		@_onChange.dispatch(@targetValue,@)
 		return @
 
 	switchTo:(value)=>
@@ -207,7 +209,6 @@ class VJBooleanController extends VJNumberController
 			@switchOn()
 		else
 			@switchOff()
-		@_onChange.dispatch(@targetValue,@)
 		return @
 
 

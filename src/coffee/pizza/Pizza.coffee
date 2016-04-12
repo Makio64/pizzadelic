@@ -5,7 +5,6 @@ class Pizza extends THREE.Object3D
 
     constructor:()->
         super()
-        Stage3d.add(@)
         Stage.onUpdate.add(@update)
         @generateFullPizza()
         return

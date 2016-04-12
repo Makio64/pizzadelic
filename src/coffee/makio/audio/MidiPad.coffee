@@ -31,7 +31,7 @@ class MidiPad
         document.body.appendChild(domElement)
         return
 
-    add:(letter,altKey=false,midiTouch)=>
+    add:(letter,midiTouch,altKey=false)=>
         for t in @touchs
             if t.letter == letter && t.altKey == altKey
                 t.activate(midiTouch)
@@ -63,7 +63,7 @@ class PadTouch
     activate:(@midi)=>
         @isActivated = true
         @domElement.style.backgroundColor = '#666'
-        return
+        return @midi
 
     onClickBt:(e)=>
         if !@isActivated then return

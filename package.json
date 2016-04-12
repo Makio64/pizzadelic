@@ -31,8 +31,7 @@
 		"nib": "*",
 		"stylus": "*",
 		"coffee-script": "*",
-		"webpack": "*",
-    "imageoptim-cli": "*"
+		"webpack": "*"
 	},
   "devDependencies": {
     "browser-sync-webpack-plugin": "*",

@@ -31,7 +31,7 @@ class Midi
 		@outputs = []
 
 		@midi.inputs.forEach( ( port, key )=>
-			console.log('midi in', port.id, port.name)
+			# console.log('midi in', port.id, port.name)
 			# console.log(port)
 			input = port
 			input.onmidimessage = @onMIDIMessage
@@ -39,7 +39,7 @@ class Midi
 		)
 
 		@midi.outputs.forEach( ( port, key )=>
-			console.log('midi out', port.id, port.name)
+			# console.log('midi out', port.id, port.name)
 			@outputs.push(port)
 		)
 
@@ -119,7 +119,7 @@ class Midi
 
 	@amberLed=(note,id)=>
 		# 29
-		console.log(note,id)
+		# console.log(note,id)
 		if(id.type=='pad')
 			Midi.sendMessage(note,1,id)
 		else
