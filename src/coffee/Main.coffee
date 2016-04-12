@@ -33,14 +33,14 @@ class Main
 		Stage3d.addPass(@custom)
 
 
-		gui.add(@custom.shader.uniforms.noiseAmount,'value',0,1).name('noiseAmount')
-		gui.add(@custom.shader.uniforms.noiseSpeed,'value',0,1).name('noiseSpeed')
+		gui.add(@custom.shader.uniforms.noiseAmount,'value',0,1).name('noiseAmount').listen()
+		gui.add(@custom.shader.uniforms.noiseSpeed,'value',0,1).name('noiseSpeed').listen()
 		gui.add(@custom.shader.uniforms.bwRatio,'value',0,1).name('bwRatio').listen()
-		gui.add(@custom.shader.uniforms.vignetteAmount,'value',0,1).name('vignetteAmount')
-		gui.add(@custom.shader.uniforms.vignetteFallOff,'value',0,1).name('vignetteFallOff')
+		gui.add(@custom.shader.uniforms.vignetteAmount,'value',0,1).name('vignetteAmount').listen()
+		gui.add(@custom.shader.uniforms.vignetteFallOff,'value',0,1).name('vignetteFallOff').listen()
 		gui.add(@custom.shader.uniforms.invertRatio,'value',0,1).name('invertRatio').listen()
-		gui.add(@custom.shader.uniforms.mirrorX,'value',0,1).step(1).name('mirrorX')
-		gui.add(@custom.shader.uniforms.mirrorY,'value',0,1).step(1).name('mirrorY')
+		gui.add(@custom.shader.uniforms.mirrorX,'value',0,1).step(1).name('mirrorX').listen()
+		gui.add(@custom.shader.uniforms.mirrorY,'value',0,1).step(1).name('mirrorY').listen()
 		# gui.add(@custom.shader.uniforms.divide4,'value',0,1).step(1).name('divide4')
 
 		# @glitchs = new WAGNER.Pass()
