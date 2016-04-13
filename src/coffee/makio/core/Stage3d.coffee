@@ -22,6 +22,7 @@ class Stage3d
 
 	@clearAuto				= false
 	@clearAlpha				= 1
+	@models = {}
 
 	@init = (options)=>
 
@@ -56,6 +57,11 @@ class Stage3d
 		@isInit = true
 
 		@activate()
+		return
+
+	@setClearColor = (value)=>
+		@clearColor = value
+		@mesh.material.color = @clearColor
 		return
 
 	@setColorFromOption = (options)=>

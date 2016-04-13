@@ -8,7 +8,7 @@ Midi = require 'makio/audio/Midi'
 class PizzaDelic extends Scene
 
 	constructor:()->
-		super()
+		super('Pizza Delic')
 		@move = false
 		@pizza = new Pizza()
 		Stage3d.add @pizza

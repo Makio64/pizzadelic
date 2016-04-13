@@ -130,7 +130,4 @@ class Midi
 		Midi.sendMessage(note,12,id)
 		return
 
-	@init()
-
-
 module.exports = Midi

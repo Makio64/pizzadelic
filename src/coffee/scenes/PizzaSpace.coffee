@@ -2,21 +2,28 @@ Scene = require 'makio/core/Scene'
 Pizza = require 'pizza/Pizza'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
+Stars = require 'space/stars'
 
 class PizzaSpace extends Scene
 
 	constructor:()->
 		super()
+
+		# Main Pizza
 		@pizza = new Pizza()
 		Stage3d.add @pizza
+
+		# Create Stars
+		@stars = new Stars()
+		Stage3d.add @stars
+
+		# Create Planet
+
+
 		return
 
 	update:(dt)=>
 		speed = dt / 16
-		s = Math.max(0.01,VJ.volume)
-		s = @pizza.scale.x += (s - @pizza.scale.x)*.35
-		@pizza.scale.set s,s,s
-		@pizza.rotation.y += speed*0.01
 		return
 
 	dispose:()=>

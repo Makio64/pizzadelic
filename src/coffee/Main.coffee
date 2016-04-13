@@ -18,6 +18,11 @@ PizzaPattern	= require('scenes/PizzaPattern')
 PizzaSpace		= require('scenes/PizzaSpace')
 PizzaTunnel		= require('scenes/PizzaTunnel')
 
+require('TGALoader.js')
+require('MMDLoader.js')
+require('CCDIKSolver.js')
+require('MMDPhysics.js')
+
 class Main
 
 	# Entry point
@@ -82,6 +87,41 @@ class Main
 
 		VJ.init(@context,@masterGain)
 		VJ.onBeat.add(@onBeat)
+		@audioTexture = new AudioTexture(VJ.binCount,256)
+
+
+		# ---------------------------------------------------------------------- UPDATE / RESIZE LISTENERS
+		Stage.onUpdate.add(@update)
+		Stage.onResize.add(@resize)
+
+		# ---------------------------------------------------------------------- DEBUG
+		Stage3d.add new Sprite(@audioTexture)
+
+		# ---------------------------------------------------------------------- START LOADING
+		@loadMiku()
+
+		return
+
+	# -------------------------------------------------------------------------- LOADING
+	loadMiku:()=>
+		loader = new THREE.MMDLoader()
+		loader.setDefaultTexturePath( '3d/' )
+		loader.load( '3d/miku_v2.pmd', ['3d/wavefile_v2.vmd'], ( object )=>
+			Stage3d.models.miku = object
+			@loadPizza()
+		)
+		return
+
+	loadPizza:()=>
+		new THREE.ObjectLoader().load "models/pizza.json", (scene) =>
+			for child in scene.children
+				for mesh in child.children
+					mesh.geometry.scale(20, 20, 20)
+				Stage3d.models[child.name] = child
+			@loadSound()
+		return
+
+	loadSound:()=>
 		Midi.onInit.add(()=>
 			MidiPad = new MidiPad()
 
@@ -105,30 +145,14 @@ class Main
 			MidiPad.add 's', VJ.add({v:0},'v',62,Midi.PAD,true).onChange(@scene2)
 			MidiPad.add 'd', VJ.add({v:0},'v',63,Midi.PAD,true).onChange(@scene3)
 			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
-			MidiPad.add 'g', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene5)
+			MidiPad.add 'g', VJ.add({v:0},'v',65,Midi.PAD,true).onChange(@scene5)
 			# ])
 
-		)
-		@audioTexture = new AudioTexture(VJ.binCount,256)
-
-		# ---------------------------------------------------------------------- LOAD MODELS
-		Stage3d.models = {}
-		new THREE.ObjectLoader().load "models/pizza.json", (scene) =>
-			for child in scene.children
-				for mesh in child.children
-					mesh.geometry.scale(20, 20, 20)
-				Stage3d.models[child.name] = child
-
 			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
-			@scene1()
+			@scene4()
 			@camera1()
-
-		# ---------------------------------------------------------------------- UPDATE / RESIZE LISTENERS
-		Stage.onUpdate.add(@update)
-		Stage.onResize.add(@resize)
-
-		# ---------------------------------------------------------------------- DEBUG
-		Stage3d.add new Sprite(@audioTexture)
+		)
+		Midi.init()
 		return
 
 	# -------------------------------------------------------------------------- CAMERA
