@@ -85,8 +85,16 @@ class Main
 		)
 		@audioTexture = new AudioTexture(VJ.binCount,256)
 
-		# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
-		Stage3d.add @pizza = new Pizza()
+
+		# ---------------------------------------------------------------------- LOAD MODELS
+		Stage3d.models = {}
+		new THREE.ObjectLoader().load "models/pizza.json", (scene) =>
+			for child in scene.children
+				for mesh in child.children
+				  mesh.scale.multiplyScalar(100)
+				Stage3d.models[child.name] = child
+			console.log	Stage3d.models
+			@addElements()
 
 		# ---------------------------------------------------------------------- UPDATE / RESIZE LISTENERS
 		Stage.onUpdate.add(@update)
@@ -95,6 +103,16 @@ class Main
 		# ---------------------------------------------------------------------- DEBUG
 		Stage3d.add new Sprite(@audioTexture)
 		return
+
+	# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
+	addElements: =>
+		Stage3d.add @pizza = new Pizza()
+		# Stage3d.add @slice = new foodClasses[0]()
+		# Stage3d.add @tomato = new Tomato()
+		# Stage3d.add @egg = new Egg()
+		# Stage3d.add @chorizo = new Chorizo()
+		# Stage3d.add @cheese = new Cheese()
+		# Stage3d.add @bacon = new Bacon()
 
 	# -------------------------------------------------------------------------- UPDATE
 

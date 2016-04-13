@@ -25,16 +25,13 @@
     "node": "*",
     "npm": "*"
   },
-	"peerDependencies": {
-		"browser-sync": "*",
-		"jade": "*",
-		"nib": "*",
-		"stylus": "*",
-		"coffee-script": "*",
-		"webpack": "*",
-    "imageoptim-cli": "*"
-	},
   "devDependencies": {
+    "browser-sync": "*",
+    "jade": "*",
+    "nib": "*",
+    "stylus": "*",
+    "coffee-script": "*",
+    "webpack": "*",
     "browser-sync-webpack-plugin": "*",
     "coffee-loader": "*",
     "hashmark": "*",
