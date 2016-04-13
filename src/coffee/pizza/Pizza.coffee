@@ -13,6 +13,7 @@ module.exports = class Pizza extends THREE.Object3D
 		super()
 
 		@slices = []
+		@egg = null
 
 		@generateFullPizza()
 		return
@@ -20,7 +21,7 @@ module.exports = class Pizza extends THREE.Object3D
 	generateFullPizza:()=>
 		for i in [0...8]
 			slice = new Slice()
-			angle = i * (Math.PI / 4)
+			angle = -i * (Math.PI / 4)
 			slice.position.x = -Math.cos(angle) * 100
 			slice.position.y = Math.sin(angle) * 100
 			slice.rotation.z = Math.PI * .5 - angle
@@ -34,16 +35,29 @@ module.exports = class Pizza extends THREE.Object3D
 			@add @egg
 		return
 
-	eat: () =>
+	eatSlice: () =>
+		numOfVisibleSlices = 0
 		for slice in @slices
-			if slice.visible
-				slice.visible = false
-				@egg.visible = false
+			if(slice.visible)
+				numOfVisibleSlices++
+			else
 				break
+
+		if numOfVisibleSlices > 0
+			@slices[numOfVisibleSlices - 1].visible = false
+			if numOfVisibleSlices < 4 and @egg
+				@egg.visible = false
+		else
+			for slice in @slices
+				slice.visible = true
+				if @egg
+					@egg.visible = true
 		return
 
 	changeColor:()=>
 		return
 
 	dispose:()=>
+		@slices = null
+		@egg = null
 		return

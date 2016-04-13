@@ -12,14 +12,14 @@ class PizzaDelic extends Scene
 		@move = false
 		@pizza = new Pizza()
 		Stage3d.add @pizza
-		
+
 		# MidiPad.add '5', VJ.add(@,'move',85,Midi.PAD,true)
 		# console.log MidiPad
 
 		return
 
-	eatPizza: () =>
-		@pizza.eat()
+	eatSlice: () =>
+		@pizza.eatSlice()
 		return
 
 	update:(dt)=>
