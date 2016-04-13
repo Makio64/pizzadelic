@@ -23,7 +23,6 @@ class Main
 	# Entry point
 	constructor:(@callback)->
 
-		@pizzaDelic = new PizzaDelic()
 		@callback(.5)
 
 		# ---------------------------------------------------------------------- INIT STAGE 2D / 3D
@@ -58,10 +57,10 @@ class Main
 		@context = new AudioContext()
 		@masterGain = @context.createGain()
 		@masterGain.gain.value = 1
-		live = false
+		live = true
 
 		if(!live)
-			@masterGain.connect(@context.destination)
+			# @masterGain.connect(@context.destination)
 			a = document.createElement('audio')
 			a.src = "audio/galvanize.mp3"
 			a.loop = true
@@ -95,18 +94,19 @@ class Main
 
 			# CAMERA
 			# VJ.addGroup([
-			MidiPad.add 'q', VJ.add({value:0},'value',71,Midi.PAD,true).onChange(@camera1)
-			MidiPad.add 'w', VJ.add({value:0},'value',72,Midi.PAD,true).onChange(@camera2)
-			MidiPad.add 'e', VJ.add({value:0},'value',73,Midi.PAD,true).onChange(@camera3)
-			MidiPad.add 'r', VJ.add({value:0},'value',74,Midi.PAD,true).onChange(@camera4)
+			MidiPad.add 'q', VJ.add({v:0},'v',71,Midi.PAD,true).onChange(@camera1)
+			MidiPad.add 'w', VJ.add({v:0},'v',72,Midi.PAD,true).onChange(@camera2)
+			MidiPad.add 'e', VJ.add({v:0},'v',73,Midi.PAD,true).onChange(@camera3)
+			MidiPad.add 'r', VJ.add({v:0},'v',74,Midi.PAD,true).onChange(@camera4)
 			# ])
 
 			# SCENE VARIATION
 			# VJ.addGroup([
-			MidiPad.add 'a', VJ.add({value:0},'value',61,Midi.PAD,true).onChange(@scene1)
-			MidiPad.add 's', VJ.add({value:0},'value',62,Midi.PAD,true).onChange(@scene2)
-			MidiPad.add 'd', VJ.add({value:0},'value',63,Midi.PAD,true).onChange(@scene3)
-			MidiPad.add 'f', VJ.add({value:0},'value',64,Midi.PAD,true).onChange(@scene4)
+			MidiPad.add 'a', VJ.add({v:0},'v',61,Midi.PAD,true).onChange(@scene1)
+			MidiPad.add 's', VJ.add({v:0},'v',62,Midi.PAD,true).onChange(@scene2)
+			MidiPad.add 'd', VJ.add({v:0},'v',63,Midi.PAD,true).onChange(@scene3)
+			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
+			MidiPad.add 'g', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene5)
 			# ])
 
 		)
@@ -155,25 +155,28 @@ class Main
 
 	# -------------------------------------------------------------------------- PIZZA SCENE VARIATION
 	scene1:(value)=>
-		SceneTraveler.to(@pizzaDelic)
+		SceneTraveler.to(new PizzaDelic())
 		return
 
 	scene2:(value)=>
-		SceneTraveler.to(@pizzaSpace)
+		SceneTraveler.to(new PizzaSpace())
 		return
 
 	scene3:(value)=>
-		SceneTraveler.to(@pizzaPattern)
+		SceneTraveler.to(new PizzaPattern())
 		return
 
 	scene4:(value)=>
-		SceneTraveler.to(@pizzaTunnel)
+		SceneTraveler.to(new PizzaBond())
+		return
+
+	scene5:(value)=>
+		SceneTraveler.to(new PizzaTunnel())
 		return
 
 	# -------------------------------------------------------------------------- UPDATE
 
 	update:(dt)=>
-		speed = dt/16
 		VJ.update()
 		@audioTexture.update(VJ.freqByteData)
 		# s = Math.max(0.01,VJ.volume)
