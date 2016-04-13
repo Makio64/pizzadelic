@@ -9,6 +9,7 @@ class PizzaTunnel extends Scene
 	constructor:()->
 		super()
 		@pizzas = []
+		@time = 0
 		radiusStep = 8
 		radius = 350
 		length = 20
@@ -26,6 +27,16 @@ class PizzaTunnel extends Scene
 		return
 
 	update:(dt)=>
+		@time += dt
+		for i in [0...@pizzas.length]
+			pizza = @pizzas[i]
+			pizza.position.z -= 10
+			for child in pizza.children
+				child.rotation.set(
+					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+				)
 		# do rotation, ask damien for quaternion TIPS
 		return
 
