@@ -4,6 +4,7 @@
 # @usage SceneTraveler.to( new Scene() )
 # @author David Ronai / Makiopolis.com / @Makio64
 #
+Stage = require 'makio/core/Stage'
 
 class SceneTraveler
 
@@ -14,10 +15,12 @@ class SceneTraveler
 
 	@init = ()=>
 		@isInit = true
+		Stage.onUpdate.add(@update)
 		return
 
 	@to = (scene)=>
 		@nextScene = scene
+		console.log @currentScene
 		if @currentScene
 			@currentScene.transitionOut()
 		else
@@ -42,5 +45,7 @@ class SceneTraveler
 		if @nextScene
 			@nextScene.resize()
 		return
+
+	@init()
 
 module.exports = SceneTraveler
