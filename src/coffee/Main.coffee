@@ -36,6 +36,13 @@ class Main
 		Stage3d.initPostProcessing()
 		Stage3d.control = new OrbitControl(Stage3d.camera,300)
 
+		# ---------------------------------------------------------------------- INIT ENVMAP
+		@envMap = new THREE.TextureLoader().load("images/SynthetikSky-Sky2.jpg")
+		@envMap.minFilter = THREE.LinearFilter;
+		@envMap.generateMipmaps = false;
+		@envMap.mapping = THREE.SphericalReflectionMapping;
+		@envMap.needsUpdate = true;
+
 		# ---------------------------------------------------------------------- POSTFX
 		@custom = new WAGNER.Pass()
 		@custom.shader = WAGNER.processShader( WAGNER.basicVs, require('postFX.fs') )
@@ -157,8 +164,10 @@ class Main
 
 			# COOL SHIT
 			# VJ.addGroup([
-			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@eatSlice)
-			MidiPad.add 'x', VJ.add({v:0},'v',52,Midi.PAD,true).onChange(@changeMaterial)
+			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@changeMaterialToGold)
+			MidiPad.add 'x', VJ.add({v:0},'v',52,Midi.PAD,true).onChange(@changeMaterialToSilver)
+			MidiPad.add 'c', VJ.add({v:0},'v',53,Midi.PAD,true).onChange(@changeMaterialColor)
+			MidiPad.add 'v', VJ.add({v:0},'v',54,Midi.PAD,true).onChange(@eatSlice)
 			# ])
 		)
 		Midi.init()
@@ -170,15 +179,31 @@ class Main
 		if(SceneTraveler.currentScene.eatSlice)
 			SceneTraveler.currentScene.eatSlice()
 
+	changeMaterialToGold: () =>
+		@changeMaterial("gold")
+		return
+
+	changeMaterialToSilver: () =>
+		@changeMaterial("silver")
+		return
+
+	changeMaterialColor: () =>
+		@changeMaterial("color")
+		return
+
 	changeMaterial: (type) =>
 		for key, food of Stage3d.models.foods
 			for mesh in food.children
-				console.log mesh.material.color
-				mesh.material.color.setRGB(
-					Math.random()
-					Math.random()
-					Math.random()
-				)
+				if type is "silver"
+					mesh.material.color.set(0xffffff)
+					mesh.material.envMap = @envMap
+				else if type is "gold"
+					mesh.material.color.set(0xffe000) # #ffe000
+					mesh.material.envMap = @envMap
+				else
+					mesh.material.envMap = null
+					mesh.material.color.set(0xffffff * Math.random())
+				mesh.material.needsUpdate = true
 		return
 
 	# -------------------------------------------------------------------------- CAMERA
