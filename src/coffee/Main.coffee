@@ -116,7 +116,7 @@ class Main
 		new THREE.ObjectLoader().load "models/pizza.json", (scene) =>
 			for child in scene.children
 				for mesh in child.children
-					mesh.scale.multiplyScalar(100)
+					mesh.geometry.scale(20, 20, 20)
 				Stage3d.models[child.name] = child
 
 			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
