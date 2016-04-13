@@ -9,6 +9,7 @@ class PizzaBond extends Scene
 		super()
 		@pizza = new Pizza()
 		Stage3d.add @pizza
+
 		return
 
 	update:(dt)=>

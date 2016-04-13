@@ -107,7 +107,6 @@ class Main
 			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
 			MidiPad.add 'g', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene5)
 			# ])
-
 		)
 		@audioTexture = new AudioTexture(VJ.binCount,256)
 
@@ -136,7 +135,7 @@ class Main
 		@cameraState = 1
 		Stage3d.control.phi = 0.001
 		Stage3d.control.theta = 0
-		Stage3d.control.radius = 100
+		Stage3d.control.radius = 500
 		return
 
 	camera2:(value)=>
