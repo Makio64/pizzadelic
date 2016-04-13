@@ -107,6 +107,11 @@ class Main
 			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
 			MidiPad.add 'g', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene5)
 			# ])
+
+			# COOL SHIT
+			# VJ.addGroup([
+			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@eatSlice)
+			# ])
 		)
 		@audioTexture = new AudioTexture(VJ.binCount,256)
 
@@ -129,6 +134,11 @@ class Main
 		# ---------------------------------------------------------------------- DEBUG
 		Stage3d.add new Sprite(@audioTexture)
 		return
+
+	# -------------------------------------------------------------------------- ACTION
+	eatSlice: =>
+		if(SceneTraveler.currentScene.eatSlice)
+			SceneTraveler.currentScene.eatSlice()
 
 	# -------------------------------------------------------------------------- CAMERA
 	camera1:(value)=>
