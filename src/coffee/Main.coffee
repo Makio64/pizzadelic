@@ -113,12 +113,19 @@ class Main
 		return
 
 	loadPizza:()=>
+		Stage3d.models.foods = {}
 		new THREE.ObjectLoader().load "models/pizza.json", (scene) =>
 			for child in scene.children
 				for mesh in child.children
 					mesh.geometry.scale(20, 20, 20)
-				Stage3d.models[child.name] = child
+				Stage3d.models.foods[child.name] = child
 			@loadSound()
+
+			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
+
+			@scene1()
+			@camera1()
+
 		return
 
 	loadSound:()=>
@@ -151,6 +158,7 @@ class Main
 			# COOL SHIT
 			# VJ.addGroup([
 			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@eatSlice)
+			MidiPad.add 'x', VJ.add({v:0},'v',52,Midi.PAD,true).onChange(@changeMaterial)
 			# ])
 		)
 		Midi.init()
@@ -161,6 +169,17 @@ class Main
 	eatSlice: =>
 		if(SceneTraveler.currentScene.eatSlice)
 			SceneTraveler.currentScene.eatSlice()
+
+	changeMaterial: (type) =>
+		for key, food of Stage3d.models.foods
+			for mesh in food.children
+				console.log mesh.material.color
+				mesh.material.color.setRGB(
+					Math.random()
+					Math.random()
+					Math.random()
+				)
+		return
 
 	# -------------------------------------------------------------------------- CAMERA
 	camera1:(value)=>
@@ -227,9 +246,6 @@ class Main
 	onBeat:()=>
 		# do something
 		return
-
-
-
 
 	# -------------------------------------------------------------------------- RESIZE
 

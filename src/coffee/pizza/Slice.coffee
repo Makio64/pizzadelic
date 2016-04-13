@@ -37,6 +37,6 @@ module.exports = class Slice extends Food
 
 		if(Math.random() > .5)
 			bacon = new Bacon()
-			randomizePosition(bacon, {distance: Math.random() * 50 + 75})
+			randomizePosition(bacon, {distance: Math.random() * 50 + 60})
 			bacon.rotation.z = Math.random() * 1 - .5
 			@add bacon
