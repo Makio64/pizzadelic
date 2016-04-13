@@ -7,7 +7,7 @@ Constants = require 'Constants'
 class PizzaTunnel extends Scene
 
 	constructor:()->
-		super()
+		super('Pizza Tunnel')
 		@pizzas = []
 		@time = 0
 		radiusStep = 8
@@ -21,6 +21,7 @@ class PizzaTunnel extends Scene
 				pizza.position.y = Math.sin(angle)*radius
 				pizza.lookAt(Constants.ZERO)
 				pizza.position.z = i*radius
+				pizza.scale.multiplyScalar(.5)
 				Stage3d.add pizza
 				@pizzas.push pizza
 
@@ -30,13 +31,13 @@ class PizzaTunnel extends Scene
 		@time += dt
 		for i in [0...@pizzas.length]
 			pizza = @pizzas[i]
-			pizza.position.z -= 10
-			for child in pizza.children
-				child.rotation.set(
-					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-					Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-				)
+			# pizza.position.z -= 10
+			# for child in pizza.children
+			# 	child.rotation.set(
+			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
+			# 	)
 		# do rotation, ask damien for quaternion TIPS
 		return
 

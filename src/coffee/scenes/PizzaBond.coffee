@@ -10,6 +10,7 @@ VJ = require 'makio/audio/VJ'
 class PizzaBond extends Scene
 
 	constructor:()->
+		@time = 0
 		super('Pizza Bond')
 		@pizza = new Pizza()
 		Stage3d.add @pizza
@@ -17,19 +18,26 @@ class PizzaBond extends Scene
 		@helper = new THREE.MMDHelper( Stage3d.renderer )
 		@helper.add( mesh )
 		@helper.setAnimation( mesh )
-		# @helper.setPhysics( mesh )
-		@helper.unifyAnimationDuration( { afterglow: 1.0 } )
-		Stage3d.add( mesh )
+		@helper.setPhysics( mesh )
+		# mesh.position.y -= 20
+		obj = new THREE.Object3D()
+		obj.scale.multiplyScalar(8)
+		obj.add mesh
+		obj.rotation.x += Math.PI/2
+		# @helper.unifyAnimationDuration( { afterglow: 1.0 } )
+		Stage3d.add( obj )
 		return
 
 	update:(dt)=>
+		@time += dt/10000
 		# speed = dt / 16
 		# s = Math.max(0.01,VJ.volume)
 		# s = @pizza.scale.x += (s - @pizza.scale.x)*.35
 		# @pizza.scale.set s,s,s
 		# @pizza.rotation.y += speed*0.01
-		@helper.animate( dt );
-		@helper.render( Stage3d.scene, Stage3d.camera );
+		@helper.animate( dt/500 );
+		# @helper.render( Stage3d.scene, Stage3d.camera );
+		# Stage3d.stop()
 		return
 
 

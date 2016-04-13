@@ -7,7 +7,7 @@ Constants = require 'Constants'
 class PizzaPattern extends Scene
 
 	constructor:()->
-		super()
+		super('PizzaPattern')
 		@pizzas = []
 		@time = 0
 		radiusStep = 8

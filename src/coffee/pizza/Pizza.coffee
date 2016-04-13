@@ -11,31 +11,35 @@ module.exports = class Pizza extends THREE.Object3D
 
 	constructor:()->
 		super()
+
+		@slices = []
+
 		@generateFullPizza()
 		return
 
 	generateFullPizza:()=>
-		# # Base
-		# geometry = new THREE.CylinderGeometry(100,100,1,16)
-		# m = new THREE.Matrix4()
-		# m.makeRotationX(-Math.PI/2)
-		# geometry.applyMatrix(m)
-		# material = new THREE.MeshBasicMaterial({wireframe:true,color:0xFFFFFF})
-		# @add @base = new THREE.Mesh(geometry, material)
-		#
-		# # Croute
-		# geometry = new THREE.TorusGeometry(100,10,10,16)
-		# material = new THREE.MeshBasicMaterial({wireframe:true,color:0xFFFFFF})
-		# @add @croute = new THREE.Mesh(geometry, material)
+		for i in [0...8]
+			slice = new Slice()
+			angle = i * (Math.PI / 4)
+			slice.position.x = -Math.cos(angle) * 100
+			slice.position.y = Math.sin(angle) * 100
+			slice.rotation.z = Math.PI * .5 - angle
+			@add slice
+			@slices.push(slice)
 
-		for FoodClass in [Slice, Tomato, Egg, Chorizo, Cheese, Bacon]
-			food = new FoodClass()
-			@add food
-			# food.position.set(
-			# 	Math.random() * 100 - 50
-			# 	Math.random() * 100 - 50
-			# 	Math.random() * 100 - 50
-			# )
+		if(Math.random() < .5)
+			@egg = new Egg()
+			@egg.position.x = Math.random() * 20 - 10
+			@egg.position.y = Math.random() * 20 - 10
+			@add @egg
+		return
+
+	eat: () =>
+		for slice in @slices
+			if slice.visible
+				slice.visible = false
+				@egg.visible = false
+				break
 		return
 
 	changeColor:()=>

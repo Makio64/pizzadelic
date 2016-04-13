@@ -35,7 +35,7 @@ module.exports = {
 			isMobile: 	__dirname+'/static/vendors/'+"isMobile.js",
 		},
 		external:{
-			ammo:'ammo'
+			ammo:'ammo',
 			CharsetEncoder:'CharsetEncoder'
 		}
 	},

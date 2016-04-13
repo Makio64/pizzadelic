@@ -4052,9 +4052,9 @@ THREE.MMDHelper.prototype = {
 
 	initRender: function () {
 
-		this.renderer.autoClear = false;
-		this.renderer.autoClearColor = false;
-		this.renderer.autoClearDepth = false;
+		// this.renderer.autoClear = false;
+		// this.renderer.autoClearColor = false;
+		// this.renderer.autoClearDepth = false;
 
 	},
 
@@ -4232,11 +4232,11 @@ THREE.MMDHelper.prototype = {
 
 		}
 
-		if ( audioManager !== null ) {
-
-			max = Math.max( max, audioManager.duration );
-
-		}
+		// if ( audioManager !== null ) {
+		//
+		// 	max = Math.max( max, audioManager.duration );
+		//
+		// }
 
 		if ( params.afterglow !== undefined ) {
 
@@ -4265,42 +4265,42 @@ THREE.MMDHelper.prototype = {
 
 		}
 
-		if ( camera !== null && camera.mixer !== null ) {
-
-			var mixer = camera.mixer;
-
-			for ( var i = 0; i < mixer._actions.length; i++ ) {
-
-				var action = mixer._actions[ i ];
-				action._clip.duration = max;
-
-			}
-
-		}
-
-		if ( audioManager !== null ) {
-
-			audioManager.duration = max;
-
-		}
+		// if ( camera !== null && camera.mixer !== null ) {
+		//
+		// 	var mixer = camera.mixer;
+		//
+		// 	for ( var i = 0; i < mixer._actions.length; i++ ) {
+		//
+		// 		var action = mixer._actions[ i ];
+		// 		action._clip.duration = max;
+		//
+		// 	}
+		//
+		// }
+		//
+		// if ( audioManager !== null ) {
+		//
+		// 	audioManager.duration = max;
+		//
+		// }
 
 	},
 
 	controlAudio: function ( delta ) {
-
-		if ( this.audioManager === null ) {
-
-			return;
-
-		}
-
-		this.audioManager.control( delta );
+		//
+		// if ( this.audioManager === null ) {
+		//
+		// 	return;
+		//
+		// }
+		//
+		// this.audioManager.control( delta );
 
 	},
 
 	animate: function ( delta ) {
 
-		this.controlAudio( delta );
+		// this.controlAudio( delta );
 
 		for ( var i = 0; i < this.meshes.length; i++ ) {
 
@@ -4308,7 +4308,7 @@ THREE.MMDHelper.prototype = {
 
 		}
 
-		this.animateCamera( delta );
+		// this.animateCamera( delta );
 
 	},
 
@@ -4373,17 +4373,17 @@ THREE.MMDHelper.prototype = {
 
 	render: function ( scene, camera ) {
 
-		this.renderer.clearColor();
-		this.renderer.clearDepth();
-		this.renderer.clear( true, true );
-
-		this.renderMain( scene, camera );
-
-		if ( this.doOutlineDrawing ) {
-
-			this.renderOutline( scene, camera );
-
-		}
+		// this.renderer.clearColor();
+		// this.renderer.clearDepth();
+		// this.renderer.clear( true, true );
+		//
+		// this.renderMain( scene, camera );
+		//
+		// if ( this.doOutlineDrawing ) {
+		//
+		// 	this.renderOutline( scene, camera );
+		//
+		// }
 
 		// workaround until I make IK and Physics Animation plugin
 		for ( var i = 0; i < this.meshes.length; i++ ) {
@@ -4396,34 +4396,34 @@ THREE.MMDHelper.prototype = {
 
 	renderMain: function ( scene, camera ) {
 
-		this.setupMainRendering();
-		this.callRender( scene, camera );
+		// this.setupMainRendering();
+		// this.callRender( scene, camera );
 
 	},
 
 	renderOutline: function ( scene, camera ) {
 
-		var tmpEnabled = this.renderer.shadowMap.enabled;
-		this.renderer.shadowMap.enabled = false;
-
-		this.setupOutlineRendering();
-		this.callRender( scene, camera );
-
-		this.renderer.shadowMap.enabled = tmpEnabled;
+		// var tmpEnabled = this.renderer.shadowMap.enabled;
+		// this.renderer.shadowMap.enabled = false;
+		//
+		// this.setupOutlineRendering();
+		// this.callRender( scene, camera );
+		//
+		// this.renderer.shadowMap.enabled = tmpEnabled;
 
 	},
 
 	callRender: function ( scene, camera ) {
 
-		if ( this.effect === null ) {
-
-			this.renderer.render( scene, camera );
-
-		} else {
-
-			this.effect.render( scene, camera );
-
-		}
+		// if ( this.effect === null ) {
+		//
+		// 	this.renderer.render( scene, camera );
+		//
+		// } else {
+		//
+		// 	this.effect.render( scene, camera );
+		//
+		// }
 
 	},
 

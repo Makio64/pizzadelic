@@ -7,7 +7,7 @@ Stars = require 'space/stars'
 class PizzaSpace extends Scene
 
 	constructor:()->
-		super()
+		super('PizzaSpace')
 
 		# Main Pizza
 		@pizza = new Pizza()
