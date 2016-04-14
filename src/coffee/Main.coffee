@@ -146,9 +146,6 @@ class Main
 					mesh.geometry.scale(20, 20, 20)
 					color = 0xFFFFFF*Math.random()
 					mesh.material = new THREE.MeshLambertMaterial({color:color})
-					mesh.material.emissive.set color
-					mesh.material.emissiveIntensity = 0
-					# mesh.material.lights = true
 				Stage3d.models.foods[child.name] = child
 			@loadSound()
 
@@ -168,22 +165,23 @@ class Main
 			MidiPad.add '2', VJ.add(@custom.shader.uniforms.invertRatio,'value',82,Midi.PAD,true)
 			MidiPad.add '3', VJ.add(@custom.shader.uniforms.mirrorX,'value',83,Midi.PAD,true)
 			MidiPad.add '4', VJ.add(@custom.shader.uniforms.mirrorY,'value',84,Midi.PAD,true)
-			MidiPad.add '5', VJ.add(@,'useLight',85,Midi.PAD,true).onChange((value)=>
-				if value
-					Stage3d.add Stage3d.ambient
-					Stage3d.add Stage3d.directional
-					Stage3d.add Stage3d.directional2
-					for key, food of Stage3d.models.foods
-						for mesh in food.children
-							mesh.material.emissiveIntensity = 0
-				else
-					Stage3d.remove Stage3d.ambient
-					Stage3d.remove Stage3d.directional
-					Stage3d.remove Stage3d.directional2
-					for key, food of Stage3d.models.foods
-						for mesh in food.children
-							mesh.material.emissiveIntensity = 1
-			)
+			# MidiPad.add '5', VJ.add(@,'useLight',85,Midi.PAD,true).onChange((value) =>
+			# 	@useLight = value
+			# 	# if value
+			# 	# 	# Stage3d.add Stage3d.ambient
+			# 	# 	# Stage3d.add Stage3d.directional
+			# 	# 	# Stage3d.add Stage3d.directional2
+			# 	# 	for key, food of Stage3d.models.foods
+			# 	# 		for mesh in food.children
+			# 	# 			mesh.material.emissiveIntensity = 0
+			# 	# else
+			# 	# 	# Stage3d.remove Stage3d.ambient
+			# 	# 	# Stage3d.remove Stage3d.directional
+			# 	# 	# Stage3d.remove Stage3d.directional2
+			# 	# 	for key, food of Stage3d.models.foods
+			# 	# 		for mesh in food.children
+			# 	# 			mesh.material.emissiveIntensity = 1
+			# )
 
 			# CAMERA
 			# VJ.addGroup([
@@ -209,7 +207,8 @@ class Main
 			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@changeMaterialToGold)
 			MidiPad.add 'x', VJ.add({v:0},'v',52,Midi.PAD,true).onChange(@changeMaterialToSilver)
 			MidiPad.add 'c', VJ.add({v:0},'v',53,Midi.PAD,true).onChange(@changeMaterialColor)
-			MidiPad.add 'v', VJ.add({v:0},'v',54,Midi.PAD,true).onChange(@eatSlice)
+			MidiPad.add 'v', VJ.add({v:0},'v',54,Midi.PAD,true).onChange(@changeMaterialBasicColor)
+			MidiPad.add 'b', VJ.add({v:0},'v',55,Midi.PAD,true).onChange(@eatSlice)
 			# ])
 		)
 		Midi.init()
@@ -233,9 +232,15 @@ class Main
 		@changeMaterial("color")
 		return
 
+	changeMaterialBasicColor: () =>
+		@changeMaterial("basiccolor")
+		return
+
 	changeMaterial: (type) =>
 		for key, food of Stage3d.models.foods
 			for mesh in food.children
+				mesh.material.color.set(0)
+				mesh.material.emissive.set(0)
 				if type is "silver"
 					mesh.material.color.set(0xffffff)
 					mesh.material.envMap = @envMap
@@ -244,7 +249,10 @@ class Main
 					mesh.material.envMap = @envMap
 				else
 					mesh.material.envMap = null
-					mesh.material.color.set(0xffffff * Math.random())
+					if(type is "basiccolor")
+						mesh.material.emissive.set(0xffffff * Math.random())
+					else
+						mesh.material.color.set(0xffffff * Math.random())
 				mesh.material.needsUpdate = true
 		return
 
