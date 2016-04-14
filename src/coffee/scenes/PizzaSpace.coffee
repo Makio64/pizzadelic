@@ -39,6 +39,8 @@ class PizzaSpace extends Scene
 
 	onBeat:()=>
 		if(Stage3d.isAuto)
+			if(Math.random()>.2)
+				Stage3d.changeMaterialToWireframe()
 			if(Math.random()>.5)
 				Stage3d.changeMaterialBasicColor()
 			if(Math.random()<.1)
