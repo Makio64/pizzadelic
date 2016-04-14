@@ -24,13 +24,13 @@ class PizzaTunnel extends Scene
 		for i in [0...@pizzas.length]
 			pizza = @pizzas[i]
 			pizza.position.z += 4
-			pizza.rotation.z -= .03
+			pizza.rotation.z += .03
 			if pizza.position.z > 300
 				pizza.position.z = -@pizzas.length * 100 + 300
 			for j in [0...8]
 				slice = pizza.slices[j]
 				angle = -j * (Math.PI / 4)
-				ratio = Math.pow(Math.max(pizza.position.z, 0) / 300, 4)
+				ratio = Math.pow(Math.max(pizza.position.z - j * 10, 0) / 300, 4)
 				slice.position.x = -Math.cos(angle) * (100 + 1000 * ratio)
 				slice.position.y = Math.sin(angle) * (100 + 1000 * ratio)
 
