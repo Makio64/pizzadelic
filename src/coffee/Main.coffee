@@ -73,9 +73,9 @@ class Main
 		live = true
 
 		if(!live)
-			# @masterGain.connect(@context.destination)
+			@masterGain.connect(@context.destination)
 			a = document.createElement('audio')
-			a.src = "audio/galvanize.mp3"
+			a.src = "audio/daddy.mp3"
 			a.loop = true
 			a.play()
 			audioSource = @context.createMediaElementSource( a )

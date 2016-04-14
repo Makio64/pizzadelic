@@ -20,6 +20,11 @@ class PizzaSpace2 extends Scene
 		@stars.setDirection(0,0,1)
 		Stage3d.add @stars
 
+		# Create FX
+		# @zoomBlurPass = new WAGNER.ZoomBlurPass()
+		# Stage3d.addPass(@zoomBlurPass)
+		# @zoomBlurPass.params.center.set(-.5,0)
+
 		# Create Food
 		@turbo = 0
 		@foods = []
@@ -57,6 +62,11 @@ class PizzaSpace2 extends Scene
 		speed = dt / 16
 		@turbo *= .9
 		@stars.update(dt)
+		# @zoomBlurPass.params.strength = @turbo
+		# @zoomBlurPass.params.delta.x = 5*@turbo
+		# @zoomBlurPass.params.delta.y = 5*@turbo
+		# Stage3d.camera.fov += (40+50*@turbo-Stage3d.camera.fov)*.15
+		# Stage3d.camera.updateProjectionMatrix()
 
 		for food in @foods
 			food.position.z += 80 * (food._velocity+@turbo*25+VJ.volume) * speed
@@ -78,6 +88,7 @@ class PizzaSpace2 extends Scene
 		return
 
 	dispose:()=>
+		VJ.onBeat.remove(@onBeat)
 		@stars.dispose()
 		Stage3d.remove @stars
 		for food in @foods
