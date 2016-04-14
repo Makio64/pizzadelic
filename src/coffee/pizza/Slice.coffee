@@ -6,7 +6,7 @@ Egg			= require('pizza/Egg')
 Tomato			= require('pizza/Tomato')
 
 module.exports = class Slice extends Food
-	constructor:(withCheeze = true) ->
+	constructor:(options = {}) ->
 		super("slice")
 
 		randomizePosition = (food, options = {}) =>
@@ -18,7 +18,7 @@ module.exports = class Slice extends Food
 			food.rotation.z = Math.random() * Math.PI * 2
 			food.scale.multiplyScalar(Math.random() * .4 + .8)
 
-		if withCheeze
+		if !options.noCheeze
 			for i in [0...40]
 				cheese = new Cheese(i * (Math.PI / 10))
 				randomizePosition(cheese)
