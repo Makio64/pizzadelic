@@ -38,14 +38,14 @@ class PizzaSpace extends Scene
 		return
 
 	onBeat:()=>
-		if(Math.random()>.5)
-			Stage3d.changeMaterialBasicColor()
-		if(Math.random()<.1)
-			if Math.random()>.5
-				Stage3d.changeMaterialToGold()
-			else
-				Stage3d.changeMaterialToSilver()
 		if(Stage3d.isAuto)
+			if(Math.random()>.5)
+				Stage3d.changeMaterialBasicColor()
+			if(Math.random()<.1)
+				if Math.random()>.5
+					Stage3d.changeMaterialToGold()
+				else
+					Stage3d.changeMaterialToSilver()
 			if(Math.random()<.2)
 				@blackAndWhite = !@blackAndWhite
 				VJ.MidiPad.switchOn('1')
