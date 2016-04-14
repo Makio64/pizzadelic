@@ -33,7 +33,7 @@ class Main
 		# ---------------------------------------------------------------------- INIT STAGE 2D / 3D
 
 		Stage3d.init({background:0x000000})
-		Stage3d.initPostProcessing()
+		# Stage3d.initPostProcessing()
 		Stage3d.control = new OrbitControl(Stage3d.camera,300)
 
 		# ---------------------------------------------------------------------- INIT ENVMAP
@@ -103,6 +103,12 @@ class Main
 
 		# ---------------------------------------------------------------------- DEBUG
 		Stage3d.add new Sprite(@audioTexture)
+		Stage.stats.addCustom('DrawCall',Stage3d.renderer.info.render,'calls')
+		Stage.stats.addCustom('Faces',Stage3d.renderer.info.render,'faces')
+		Stage.stats.addCustom('Points',Stage3d.renderer.info.render,'points')
+		Stage.stats.addCustom('Vertices',Stage3d.renderer.info.render,'vertices')
+		Stage.stats.addCustom('Geometries',Stage3d.renderer.info.memory,'geometries')
+		Stage.stats.addCustom('Textures',Stage3d.renderer.info.memory,'textures')
 
 		# ---------------------------------------------------------------------- START LOADING
 		@loadMiku()

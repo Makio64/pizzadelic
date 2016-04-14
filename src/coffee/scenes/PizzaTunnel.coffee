@@ -1,5 +1,6 @@
 Scene = require 'makio/core/Scene'
 Pizza = require 'pizza/Pizza'
+Slice = require 'pizza/Slice'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
 Constants = require 'Constants'
@@ -10,12 +11,12 @@ class PizzaTunnel extends Scene
 		super('Pizza Tunnel')
 		@pizzas = []
 		@time = 0
-		radiusStep = 8
-		radius = 350
-		length = 20
+		radiusStep = 7
+		radius = 400
+		length = 15
 		for i in [0...length] by 1
 			for step in [0...radiusStep] by 1
-				pizza = new Pizza()
+				pizza = new Slice(false)
 				angle = Math.PI*2*step/radiusStep+Math.PI/4
 				pizza.position.x = Math.cos(angle)*radius
 				pizza.position.y = Math.sin(angle)*radius

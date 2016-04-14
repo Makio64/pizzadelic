@@ -35,14 +35,11 @@ class Stage
 		@lastTime = performance.now()
 
 		requestAnimationFrame( @update )
-		@stat = new Stats()
-		document.body.appendChild(@stat.domElement)
-		@stat.domElement.style.zIndex = 1000
-
+		@stats = new Stats()
+		document.body.appendChild(@stats.domElement)
 		return
 
 	@update:()=>
-		@stat.begin()
 		t = performance.now()
 		dt = t - @lastTime
 		@lastTime = t
@@ -51,8 +48,9 @@ class Stage
 		if @skipActivated && dt > @skipLimit then return
 		if @pause then return
 
+		@stats.begin()
 		@onUpdate.dispatch(dt)
-		@stat.end()
+		@stats.end()
 		return
 
 	@init()
