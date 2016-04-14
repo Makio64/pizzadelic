@@ -32,9 +32,29 @@ class PizzaSpace extends Scene
 		@spaceship.add obj
 		@spaceship.add @pizza
 		Stage3d.add @spaceship
+		@angle = 0
+
+		VJ.onBeat.add(@onBeat)
+		return
+
+	onBeat:()=>
+		if(Math.random()>.5)
+			Stage3d.changeMaterialBasicColor()
+		if(Math.random()>.2)
+			@blackAndWhite = Math.random()*400+200
+			VJ.MidiPad.switchOn('1')
+		if(Math.random()>.3)
+			@invert = Math.random()*150+150
+			VJ.MidiPad.switchOn('2')
 		return
 
 	update:(dt)=>
+		@blackAndWhite -= dt
+		if @blackAndWhite < 0
+			VJ.MidiPad.switchOff('1')
+		@invert -= dt
+		if @invert < 0
+			VJ.MidiPad.switchOff('2')
 		@stars.update(dt)
 		@time += dt/10000
 		speed = dt / 16
@@ -42,6 +62,9 @@ class PizzaSpace extends Scene
 		@spaceship.rotation.z += speed *VJ.volume
 		s = 1 + VJ.volume*3
 		@pizza.scale.set s,s,1
+		@angle+=speed*0.03
+		Stage3d.control.theta = Math.PI/2 + Math.sin(@angle)*.15
+		Stage3d.control.phi = 2.9 + Math.cos(@angle)*.1
 		return
 
 	dispose:()=>

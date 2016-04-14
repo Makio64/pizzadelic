@@ -31,6 +31,18 @@ class MidiPad
         document.body.appendChild(domElement)
         return
 
+    switchOn:(letter,altKey=false)=>
+        for t in @touchs
+            if t.letter == letter && t.altKey == altKey
+                t.switchOn()
+        return
+
+    switchOff:(letter,altKey=false)=>
+        for t in @touchs
+            if t.letter == letter && t.altKey == altKey
+                t.switchOff()
+        return
+
     add:(letter,midiTouch,altKey=false)=>
         for t in @touchs
             if t.letter == letter && t.altKey == altKey
@@ -64,6 +76,18 @@ class PadTouch
         @isActivated = true
         @domElement.style.backgroundColor = '#666'
         return @midi
+
+    switchOn:()=>
+        if !@isActivated then return
+        if(!@midi.isOn)
+            @midi.switchOn()
+        return
+
+    switchOff:()=>
+        if !@isActivated then return
+        if(@midi.isOn)
+            @midi.switchOff()
+        return
 
     onClickBt:(e)=>
         if !@isActivated then return

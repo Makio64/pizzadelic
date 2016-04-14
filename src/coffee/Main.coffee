@@ -97,6 +97,7 @@ class Main
 		VJ.init(@context,@masterGain)
 		VJ.onBeat.add(@onBeat)
 		@audioTexture = new AudioTexture(VJ.binCount,256)
+		VJ.audioTexture = @audioTexture
 
 
 		# ---------------------------------------------------------------------- UPDATE / RESIZE LISTENERS
@@ -210,9 +211,14 @@ class Main
 			MidiPad.add 'v', VJ.add({v:0},'v',54,Midi.PAD,true).onChange(@changeMaterialBasicColor)
 			MidiPad.add 'b', VJ.add({v:0},'v',55,Midi.PAD,true).onChange(@eatSlice)
 			# ])
+
+			VJ.MidiPad = MidiPad
 		)
 		Midi.init()
-		@audioTexture = new AudioTexture(VJ.binCount,256)
+		Stage3d.changeMaterialToGold = @changeMaterialToGold
+		Stage3d.changeMaterialToSilver = @changeMaterialToSilver
+		Stage3d.changeMaterialColor = @changeMaterialColor
+		Stage3d.changeMaterialBasicColor = @changeMaterialBasicColor
 		return
 
 	# -------------------------------------------------------------------------- ACTION
