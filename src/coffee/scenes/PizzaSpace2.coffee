@@ -25,7 +25,6 @@ class PizzaSpace2 extends Scene
 
 		for i in [0...50]
 			for FoodClass in [Slice, Bacon, Cheese, Chorizo, Egg, Tomato]
-				console.log FoodClass
 				params = if FoodClass is Slice then {noFood: true} else undefined
 				food = new FoodClass(params)
 				food.position.x = Math.random() * 2000 - 1000
@@ -59,6 +58,7 @@ class PizzaSpace2 extends Scene
 		return
 
 	dispose:()=>
+		Stage3d.remove @stars
 		for food in @foods
 			Stage3d.remove food
 		return
