@@ -17,10 +17,11 @@ class PizzaSpace2 extends Scene
 
 		# Create Stars
 		@stars = new Stars(80000)
+		@stars.setDirection(0,0,1)
 		Stage3d.add @stars
 
 		# Create Food
-
+		@turbo = 0
 		@foods = []
 
 		for i in [0...100]
@@ -30,7 +31,7 @@ class PizzaSpace2 extends Scene
 				food.position.x = Math.random() * 10000 - 5000
 				food.position.y = Math.random() * 10000 - 5000
 				food.position.z = -Math.random() * 40000
-				food._velocity = 1 + Math.random() * 5
+				food._velocity = .2 + Math.random() * 5
 				food._rotation = new THREE.Vector3(
 					(Math.random() - .5) * .1
 					(Math.random() - .5) * .1
@@ -44,15 +45,21 @@ class PizzaSpace2 extends Scene
 				)
 				Stage3d.add food
 				@foods.push food
+		VJ.onBeat.add(@onBeat)
+		return
+
+	onBeat:()=>
+		console.log 'lol'
+		@turbo = 1
 		return
 
 	update:(dt)=>
 		speed = dt / 16
-
+		@turbo *= .9
 		@stars.update(dt)
 
 		for food in @foods
-			food.position.z += 80 * food._velocity * speed
+			food.position.z += 80 * (food._velocity+@turbo*25+VJ.volume) * speed
 			food.rotation.x += food._rotation.x
 			food.rotation.y += food._rotation.y
 			food.rotation.z += food._rotation.z
@@ -71,6 +78,7 @@ class PizzaSpace2 extends Scene
 		return
 
 	dispose:()=>
+		@stars.dispose()
 		Stage3d.remove @stars
 		for food in @foods
 			Stage3d.remove food
