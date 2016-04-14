@@ -9,6 +9,9 @@ module.exports = class Slice extends Food
 	constructor:(options = {}) ->
 		super("slice")
 
+		if options.noFood
+			return
+
 		randomizePosition = (food, options = {}) =>
 			angle = options.angle || Math.PI * .5 + Math.random() * Math.PI * .25 - Math.PI * .125
 			distance = options.distance || 20 + Math.random() * 140

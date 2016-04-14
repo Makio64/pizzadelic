@@ -4,7 +4,7 @@ Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
 Constants = require 'Constants'
 
-class PizzaTunnel extends Scene
+class PizzaTunnel2 extends Scene
 
 	constructor:()->
 		super('Pizza Tunnel')
@@ -33,15 +33,6 @@ class PizzaTunnel extends Scene
 				ratio = Math.pow(Math.max(pizza.position.z - j * 10, 0) / 300, 4)
 				slice.position.x = -Math.cos(angle) * (100 + 1000 * ratio)
 				slice.position.y = Math.sin(angle) * (100 + 1000 * ratio)
-
-			# pizza.position.z -= 10
-			# for child in pizza.children
-			# 	child.rotation.set(
-			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-			# 		Math.PI * 2 * Math.cos(@time * .0001 + i * 100)
-			# 	)
-		# do rotation, ask damien for quaternion TIPS
 		return
 
 	dispose:()=>
@@ -50,4 +41,4 @@ class PizzaTunnel extends Scene
 			p.dispose()
 		return
 
-module.exports = PizzaTunnel
+module.exports = PizzaTunnel2
