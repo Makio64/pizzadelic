@@ -20,12 +20,12 @@ class PizzaBond extends Scene
 		@helper.setAnimation( mesh )
 		# @helper.setPhysics( mesh )
 		# mesh.position.y -= 20
-		obj = new THREE.Object3D()
-		obj.scale.multiplyScalar(8)
-		obj.add mesh
-		obj.rotation.x += Math.PI/2
+		@miku = new THREE.Object3D()
+		@miku.scale.multiplyScalar(8)
+		@miku.add mesh
+		@miku.rotation.x += Math.PI/2
 		# @helper.unifyAnimationDuration( { afterglow: 1.0 } )
-		Stage3d.add( obj )
+		Stage3d.add( @miku )
 		return
 
 	update:(dt)=>
@@ -43,6 +43,7 @@ class PizzaBond extends Scene
 
 	dispose:()=>
 		Stage3d.remove @pizza
+		Stage3d.remove @miku
 		@pizza.dispose()
 		return
 

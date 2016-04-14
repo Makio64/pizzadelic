@@ -23,13 +23,13 @@ class PizzaSpace extends Scene
 		@helper.setAnimation( mesh )
 		# @helper.setPhysics( mesh )
 		# mesh.position.y -= 20
-		obj = new THREE.Object3D()
-		obj.scale.multiplyScalar(8)
-		obj.add mesh
-		obj.add @pizza
-		obj.rotation.x += Math.PI/2
+		@miku = new THREE.Object3D()
+		@miku.scale.multiplyScalar(8)
+		@miku.add mesh
+		@miku.add @pizza
+		@miku.rotation.x += Math.PI/2
 		@spaceship = new THREE.Object3D()
-		@spaceship.add obj
+		@spaceship.add @miku
 		@spaceship.add @pizza
 		Stage3d.add @spaceship
 		@angle = 0

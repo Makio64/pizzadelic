@@ -26,7 +26,7 @@ class VJ
 	@msecsAvg = 633 #time between beats (msec)
 	@gotBeat = false
 
-	@levelsCount = 16 #should be factor of 512
+	@levelsCount = 128 #should be factor of 512
 	@beatCutOff = 0
 	@beatTime = 0
 	@globalVolume = 1

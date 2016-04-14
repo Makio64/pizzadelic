@@ -52,6 +52,7 @@ class PizzaDelic extends Scene
 	dispose:()=>
 		# MidiPad.remove '5'
 		# VJ.remove(@,'move',85,Midi.PAD,true)
+		VJ.onBeat.remove(@onBeat)
 		Stage3d.remove @pizza
 		@pizza.dispose()
 		return

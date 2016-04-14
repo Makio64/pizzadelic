@@ -42,7 +42,8 @@ class PizzaSpace2 extends Scene
 					(Math.random() - .5) * .1
 					(Math.random() - .5) * .1
 				)
-				food.scale.multiplyScalar(1 + Math.random() * 5)
+				food._scale = 1 + Math.random() * 5
+				food.scale.set(food._scale, food._scale, food._scale)
 				food.rotation.set(
 					Math.random() * Math.PI * 2
 					Math.random() * Math.PI * 2
@@ -54,8 +55,10 @@ class PizzaSpace2 extends Scene
 		return
 
 	onBeat:()=>
-		console.log 'lol'
 		@turbo = 1
+		# for food in @foods
+		# 	scale = food._scale + Math.random()
+		# 	food.scale.set(scale, scale, scale)
 		return
 
 	update:(dt)=>
@@ -68,11 +71,16 @@ class PizzaSpace2 extends Scene
 		# Stage3d.camera.fov += (40+50*@turbo-Stage3d.camera.fov)*.15
 		# Stage3d.camera.updateProjectionMatrix()
 
-		for food in @foods
+		for i in [0...@foods.length]
+			food = @foods[i]
 			food.position.z += 80 * (food._velocity+@turbo*25+VJ.volume) * speed
 			food.rotation.x += food._rotation.x
 			food.rotation.y += food._rotation.y
 			food.rotation.z += food._rotation.z
+
+			scale = food._scale + VJ.levelsData[i] * 20
+			food.scale.set scale, scale, scale
+
 			if(food.position.z > 500)
 				food.position.z = -40000
 		return
