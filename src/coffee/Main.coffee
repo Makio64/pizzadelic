@@ -114,7 +114,7 @@ class Main
 		Stage.stats.addCustom('Textures',Stage3d.renderer.info.memory,'textures')
 
 		# ---------------------------------------------------------------------- LIGHTS
-		Stage3d.ambient = new THREE.AmbientLight(0xAAAAAA)
+		Stage3d.ambient = new THREE.AmbientLight(0xffffff)
 		Stage3d.directional = new THREE.DirectionalLight(0xffffff, .9 );
 		Stage3d.directional.position.set( .5, 1, 0 );
 		Stage3d.directional2 = new THREE.DirectionalLight(0xffffff, .9 );
