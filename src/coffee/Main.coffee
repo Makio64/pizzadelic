@@ -17,6 +17,7 @@ PizzaBond		= require('scenes/PizzaBond')
 PizzaPattern	= require('scenes/PizzaPattern')
 PizzaSpace		= require('scenes/PizzaSpace')
 PizzaTunnel		= require('scenes/PizzaTunnel')
+PizzaTunnel2		= require('scenes/PizzaTunnel2')
 
 require('TGALoader.js')
 require('MMDLoader.js')
@@ -136,7 +137,7 @@ class Main
 
 			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
 
-			@scene2()
+			@scene6()
 			@camera1()
 
 		return
@@ -166,6 +167,7 @@ class Main
 			MidiPad.add 'd', VJ.add({v:0},'v',63,Midi.PAD,true).onChange(@scene3)
 			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
 			MidiPad.add 'g', VJ.add({v:0},'v',65,Midi.PAD,true).onChange(@scene5)
+			MidiPad.add 'h', VJ.add({v:0},'v',66,Midi.PAD,true).onChange(@scene6)
 			# ])
 
 			# COOL SHIT
@@ -260,6 +262,10 @@ class Main
 
 	scene5:(value)=>
 		SceneTraveler.to(new PizzaTunnel())
+		return
+
+	scene6:(value)=>
+		SceneTraveler.to(new PizzaTunnel2())
 		return
 
 	# -------------------------------------------------------------------------- UPDATE

@@ -9,16 +9,12 @@ Tomato			= require('pizza/Tomato')
 
 module.exports = class Pizza extends THREE.Object3D
 
-	constructor:()->
+	constructor:(options = {})->
 		super()
 
 		@slices = []
 		@egg = null
 
-		@generateFullPizza()
-		return
-
-	generateFullPizza:()=>
 		for i in [0...8]
 			slice = new Slice()
 			angle = -i * (Math.PI / 4)
@@ -28,7 +24,7 @@ module.exports = class Pizza extends THREE.Object3D
 			@add slice
 			@slices.push(slice)
 
-		if(Math.random() < .5)
+		if(!options.noEgg and Math.random() < .5)
 			@egg = new Egg()
 			@egg.position.x = Math.random() * 20 - 10
 			@egg.position.y = Math.random() * 20 - 10

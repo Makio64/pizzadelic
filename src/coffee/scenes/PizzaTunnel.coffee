@@ -31,6 +31,7 @@ class PizzaTunnel extends Scene
 		@time += dt
 		for i in [0...@slices.length]
 			slice = @slices[i]
+
 			# slice.position.z -= 10
 			# for child in slice.children
 			# 	child.rotation.set(
