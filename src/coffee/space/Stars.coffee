@@ -44,7 +44,7 @@ class Stars extends THREE.Points
 		return
 
 	setDirection:(x,y,z)->
-		@uniforms.direction.set(x,y,z)
+		@uniforms.direction.value.set(x,y,z)
 		return
 
 	createGeometry:(vertices, radius)->
