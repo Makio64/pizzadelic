@@ -13,7 +13,7 @@ class PizzaTunnel extends Scene
 		@time = 0
 		radiusStep = 7
 		radius = 400
-		length = 15
+		length = 10
 		for i in [0...length] by 1
 			for step in [0...radiusStep] by 1
 				pizza = new Slice(false)

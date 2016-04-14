@@ -41,3 +41,8 @@ module.exports = class Slice extends Food
 			randomizePosition(bacon, {distance: Math.random() * 50 + 60})
 			bacon.rotation.z = Math.random() * 1 - .5
 			@add bacon
+
+	dispose:()->
+		for i in [@children.length-1..0] by -1
+			@remove(@children[i])
+		return
