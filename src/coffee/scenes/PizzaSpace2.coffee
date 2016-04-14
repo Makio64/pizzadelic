@@ -17,6 +17,7 @@ class PizzaSpace2 extends Scene
 
 		# Create Stars
 		@stars = new Stars(80000)
+		@stars.setDirection(0,0,1)
 		Stage3d.add @stars
 
 		# Create Food
@@ -59,6 +60,9 @@ class PizzaSpace2 extends Scene
 		return
 
 	dispose:()=>
+		@stars.dispose()
+		Stage3d.remove @stars
+
 		for food in @foods
 			Stage3d.remove food
 		return

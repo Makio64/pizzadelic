@@ -6,7 +6,7 @@ Midi			= require('makio/audio/Midi')
 
 class Stars extends THREE.Points
 
-	constructor:(vertices=40000, radius=1000)->
+	constructor:(vertices=40000, radius=2000)->
 		material = @createMaterial()
 		geometry = @createGeometry(vertices, radius)
 		super(geometry,material)
@@ -26,6 +26,7 @@ class Stars extends THREE.Points
 			color:     { type: "v3", value: new THREE.Vector3(1,1,1) }
 			size: 	   { type: "f", value: 5*(window.devicePixelRatio/2) }
 			time: 	   { type: "f", value: 0 }
+			direction: { type: "v3", value: new THREE.Vector3(0,1,0) }
 		}
 
 		material = new THREE.ShaderMaterial( {
@@ -39,6 +40,13 @@ class Stars extends THREE.Points
 		})
 		return material
 
+	dispose:()->
+		return
+
+	setDirection:(x,y,z)->
+		@uniforms.direction.set(x,y,z)
+		return
+
 	createGeometry:(vertices, radius)->
 		geometry = new THREE.BufferGeometry()
 		size = vertices
@@ -47,9 +55,9 @@ class Stars extends THREE.Points
 		pi2 = Math.PI * 2
 
 		for index in [0...size*3] by 3
-			positions[ index + 0 ] = radius * (Math.random()-.5)*2
-			positions[ index + 1 ] = radius * (Math.random()-.5)*2
-			positions[ index + 2 ] = radius * (Math.random()-.5)*2
+			positions[ index + 0 ] = radius * (Math.random())*2
+			positions[ index + 1 ] = radius * (Math.random())*2
+			positions[ index + 2 ] = radius * (Math.random())*2
 			times[index/3] = 1000*Math.random()
 
 		geometry.addAttribute( 'aTime', new THREE.BufferAttribute( times, 1 ) )
