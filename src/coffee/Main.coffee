@@ -112,6 +112,17 @@ class Main
 		Stage.stats.addCustom('Geometries',Stage3d.renderer.info.memory,'geometries')
 		Stage.stats.addCustom('Textures',Stage3d.renderer.info.memory,'textures')
 
+		# ---------------------------------------------------------------------- LIGHTS
+		Stage3d.ambient = new THREE.AmbientLight(0xAAAAAA)
+		Stage3d.directional = new THREE.DirectionalLight(0xffffff, .9 );
+		Stage3d.directional.position.set( .5, 1, 0 );
+		Stage3d.directional2 = new THREE.DirectionalLight(0xffffff, .9 );
+		Stage3d.directional2.position.set( .5, .5, .5 );
+		Stage3d.add Stage3d.ambient
+		Stage3d.add Stage3d.directional
+		Stage3d.add Stage3d.directional2
+		@useLight = true
+
 		# ---------------------------------------------------------------------- START LOADING
 		@loadMiku()
 
@@ -133,6 +144,11 @@ class Main
 			for child in scene.children
 				for mesh in child.children
 					mesh.geometry.scale(20, 20, 20)
+					color = 0xFFFFFF*Math.random()
+					mesh.material = new THREE.MeshLambertMaterial({color:color})
+					mesh.material.emissive.set color
+					mesh.material.emissiveIntensity = 0
+					# mesh.material.lights = true
 				Stage3d.models.foods[child.name] = child
 			@loadSound()
 
@@ -152,6 +168,22 @@ class Main
 			MidiPad.add '2', VJ.add(@custom.shader.uniforms.invertRatio,'value',82,Midi.PAD,true)
 			MidiPad.add '3', VJ.add(@custom.shader.uniforms.mirrorX,'value',83,Midi.PAD,true)
 			MidiPad.add '4', VJ.add(@custom.shader.uniforms.mirrorY,'value',84,Midi.PAD,true)
+			MidiPad.add '5', VJ.add(@,'useLight',85,Midi.PAD,true).onChange((value)=>
+				if value
+					Stage3d.add Stage3d.ambient
+					Stage3d.add Stage3d.directional
+					Stage3d.add Stage3d.directional2
+					for key, food of Stage3d.models.foods
+						for mesh in food.children
+							mesh.material.emissiveIntensity = 0
+				else
+					Stage3d.remove Stage3d.ambient
+					Stage3d.remove Stage3d.directional
+					Stage3d.remove Stage3d.directional2
+					for key, food of Stage3d.models.foods
+						for mesh in food.children
+							mesh.material.emissiveIntensity = 1
+			)
 
 			# CAMERA
 			# VJ.addGroup([

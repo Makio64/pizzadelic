@@ -1,9 +1,11 @@
 uniform float size;
-varying float vPosY;
+uniform float time;
 
 void main() {
-	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-	vPosY = position.y;
+	vec3 pos = position;
+	pos.y += time;
+	pos.y = -1000. + mod(pos.y,2000.);
+	vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
 	gl_PointSize = size * ( 400. / - mvPosition.z);
 	gl_Position = projectionMatrix * mvPosition;
 }
