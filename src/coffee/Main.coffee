@@ -33,7 +33,7 @@ class Main
 		# ---------------------------------------------------------------------- INIT STAGE 2D / 3D
 
 		Stage3d.init({background:0x000000})
-		# Stage3d.initPostProcessing()
+		Stage3d.initPostProcessing()
 		Stage3d.control = new OrbitControl(Stage3d.camera,300)
 
 		# ---------------------------------------------------------------------- INIT ENVMAP
@@ -136,7 +136,7 @@ class Main
 
 			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
 
-			@scene1()
+			@scene2()
 			@camera1()
 
 		return
@@ -215,8 +215,8 @@ class Main
 	# -------------------------------------------------------------------------- CAMERA
 	camera1:(value)=>
 		@cameraState = 1
-		Stage3d.control.phi = 0.001
-		Stage3d.control.theta = 0
+		Stage3d.control.phi = 2.9
+		Stage3d.control.theta = Stage3d.control.theta
 		Stage3d.control.radius = 500
 		return
 
@@ -265,6 +265,7 @@ class Main
 	# -------------------------------------------------------------------------- UPDATE
 
 	update:(dt)=>
+		# console.log Stage3d.control.phi, Stage3d.control.theta
 		VJ.update()
 		@audioTexture.update(VJ.freqByteData)
 		# s = Math.max(0.01,VJ.volume)

@@ -14,7 +14,7 @@ class PizzaSpace extends Scene
 		Stage3d.add @pizza
 
 		# Create Stars
-		@stars = new Stars()
+		@stars = new Stars(80000)
 		Stage3d.add @stars
 
 		# Create Planet

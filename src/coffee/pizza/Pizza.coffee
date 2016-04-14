@@ -1,10 +1,10 @@
-Stage3d				= require("makio/core/Stage3d")
-Stage				= require("makio/core/Stage")
+Stage3d			= require("makio/core/Stage3d")
+Stage			= require("makio/core/Stage")
 Slice			= require('pizza/Slice')
 Bacon			= require('pizza/Bacon')
 Cheese			= require('pizza/Cheese')
 Chorizo			= require('pizza/Chorizo')
-Egg			= require('pizza/Egg')
+Egg				= require('pizza/Egg')
 Tomato			= require('pizza/Tomato')
 
 module.exports = class Pizza extends THREE.Object3D
@@ -52,9 +52,6 @@ module.exports = class Pizza extends THREE.Object3D
 				slice.visible = true
 				if @egg
 					@egg.visible = true
-		return
-
-	changeColor:()=>
 		return
 
 	dispose:()=>

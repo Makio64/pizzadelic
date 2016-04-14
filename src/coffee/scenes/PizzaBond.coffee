@@ -18,7 +18,7 @@ class PizzaBond extends Scene
 		@helper = new THREE.MMDHelper( Stage3d.renderer )
 		@helper.add( mesh )
 		@helper.setAnimation( mesh )
-		@helper.setPhysics( mesh )
+		# @helper.setPhysics( mesh )
 		# mesh.position.y -= 20
 		obj = new THREE.Object3D()
 		obj.scale.multiplyScalar(8)
