@@ -23,20 +23,20 @@ class PizzaSpace2 extends Scene
 
 		@foods = []
 
-		for i in [0...50]
+		for i in [0...100]
 			for FoodClass in [Slice, Bacon, Cheese, Chorizo, Egg, Tomato]
 				params = if FoodClass is Slice then {noFood: true} else undefined
 				food = new FoodClass(params)
-				food.position.x = Math.random() * 2000 - 1000
-				food.position.y = Math.random() * 2000 - 1000
-				food.position.z = -Math.random() * 20000
+				food.position.x = Math.random() * 10000 - 5000
+				food.position.y = Math.random() * 10000 - 5000
+				food.position.z = -Math.random() * 40000
 				food._velocity = 1 + Math.random() * 5
 				food._rotation = new THREE.Vector3(
 					(Math.random() - .5) * .1
 					(Math.random() - .5) * .1
 					(Math.random() - .5) * .1
 				)
-				food.scale.multiplyScalar(1 + Math.random() * 1)
+				food.scale.multiplyScalar(1 + Math.random() * 5)
 				food.rotation.set(
 					Math.random() * Math.PI * 2
 					Math.random() * Math.PI * 2
@@ -48,13 +48,26 @@ class PizzaSpace2 extends Scene
 
 	update:(dt)=>
 		speed = dt / 16
+
+		@stars.update(dt)
+
 		for food in @foods
-			food.position.z += 50 * food._velocity
+			food.position.z += 80 * food._velocity * speed
 			food.rotation.x += food._rotation.x
 			food.rotation.y += food._rotation.y
 			food.rotation.z += food._rotation.z
 			if(food.position.z > 500)
-				food.position.z = -20000
+				food.position.z = -40000
+		return
+
+	transitionIn: () =>
+		super()
+
+		Stage3d.scene.fog = new THREE.Fog(0x000000, 10000, 40000)
+
+		# Stage3d.camera.fov = 30
+		# Stage3d.camera.updateProjectionMatrix()
+
 		return
 
 	dispose:()=>
