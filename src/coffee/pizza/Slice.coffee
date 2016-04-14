@@ -21,10 +21,10 @@ module.exports = class Slice extends Food
 			food.rotation.z = Math.random() * Math.PI * 2
 			food.scale.multiplyScalar(Math.random() * .4 + .8)
 
-		if !options.noCheeze
-			for i in [0...40]
+		if !options.noCheese
+			for i in [0...20]
 				cheese = new Cheese(i * (Math.PI / 10))
-				randomizePosition(cheese)
+				randomizePosition(cheese, {distance: 40 + Math.random() * 120})
 				@add cheese
 
 		num = Math.ceil(Math.random() * 3)

@@ -11,9 +11,9 @@ class PizzaTunnel2 extends Scene
 		@pizzas = []
 		@time = 0
 
-		for i in [0...6]
+		for i in [0...3]
 			pizza = new Pizza({noEgg: true})
-			pizza.position.z = -i * 100
+			pizza.position.z = -i * 300
 			Stage3d.add pizza
 			@pizzas.push pizza
 
@@ -26,7 +26,7 @@ class PizzaTunnel2 extends Scene
 			pizza.position.z += 4
 			pizza.rotation.z += .03
 			if pizza.position.z > 300
-				pizza.position.z = -@pizzas.length * 100 + 300
+				pizza.position.z = -@pizzas.length * 300 + 300
 			for j in [0...8]
 				slice = pizza.slices[j]
 				angle = -j * (Math.PI / 4)

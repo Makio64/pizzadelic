@@ -16,7 +16,7 @@ module.exports = class Pizza extends THREE.Object3D
 		@egg = null
 
 		for i in [0...8]
-			slice = new Slice()
+			slice = new Slice({noCheese: options.noCheese})
 			angle = -i * (Math.PI / 4)
 			slice.position.x = -Math.cos(angle) * 100
 			slice.position.y = Math.sin(angle) * 100

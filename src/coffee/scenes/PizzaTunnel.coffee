@@ -15,7 +15,7 @@ class PizzaTunnel extends Scene
 		length = 10
 		for i in [0...length] by 1
 			for step in [0...radiusStep] by 1
-				slice = new Slice({noCheeze: true})
+				slice = new Slice({noCheese: true})
 				angle = Math.PI*2*step/radiusStep+Math.PI/4
 				slice.position.x = Math.cos(angle)*radius
 				slice.position.y = Math.sin(angle)*radius
