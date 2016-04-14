@@ -45,22 +45,24 @@ class PizzaSpace extends Scene
 				Stage3d.changeMaterialToGold()
 			else
 				Stage3d.changeMaterialToSilver()
-		if(Math.random()<.2)
-			@blackAndWhite = !@blackAndWhite
-			VJ.MidiPad.switchOn('1')
-		if(Math.random()<.3)
-			@invert = Math.random()*150+150
-			VJ.MidiPad.switchOn('2')
+		if(Stage3d.isAuto)
+			if(Math.random()<.2)
+				@blackAndWhite = !@blackAndWhite
+				VJ.MidiPad.switchOn('1')
+			if(Math.random()<.3)
+				@invert = Math.random()*150+150
+				VJ.MidiPad.switchOn('2')
 		Stage3d.control.radius = 500+Math.random()*1000
 		return
 
 	update:(dt)=>
-		@blackAndWhite -= dt
-		if @blackAndWhite < 0
-			VJ.MidiPad.switchOff('1')
-		@invert -= dt
-		if @invert < 0
-			VJ.MidiPad.switchOff('2')
+		if(Stage3d.isAuto)
+			@blackAndWhite -= dt
+			if @blackAndWhite < 0
+				VJ.MidiPad.switchOff('1')
+			@invert -= dt
+			if @invert < 0
+				VJ.MidiPad.switchOff('2')
 		@stars.update(dt)
 		@time += dt/10000
 		speed = dt / 16

@@ -212,6 +212,9 @@ class Main
 			MidiPad.add 'b', VJ.add({v:0},'v',55,Midi.PAD,true).onChange(@eatSlice)
 			# ])
 
+			Stage3d.isAuto = false
+			MidiPad.add '8', VJ.add(Stage3d,'isAuto',89,Midi.PAD,true)
+
 			VJ.MidiPad = MidiPad
 		)
 		Midi.init()
