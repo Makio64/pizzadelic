@@ -32,7 +32,7 @@ void main() {
 	float boost = 2.;
 
 	inc = center / resolution - vUv;
-	
+
 	sum += texture2D( tInput, ( vUv - inc * 4. ) ) * 0.051;
 	sum += texture2D( tInput, ( vUv - inc * 3. ) ) * 0.0918;
 	sum += texture2D( tInput, ( vUv - inc * 2. ) ) * 0.12245;

@@ -40,12 +40,18 @@ class PizzaSpace extends Scene
 	onBeat:()=>
 		if(Math.random()>.5)
 			Stage3d.changeMaterialBasicColor()
-		if(Math.random()>.2)
-			@blackAndWhite = Math.random()*400+200
+		if(Math.random()<.1)
+			if Math.random()>.5
+				Stage3d.changeMaterialToGold()
+			else
+				Stage3d.changeMaterialToSilver()
+		if(Math.random()<.2)
+			@blackAndWhite = !@blackAndWhite
 			VJ.MidiPad.switchOn('1')
-		if(Math.random()>.3)
+		if(Math.random()<.3)
 			@invert = Math.random()*150+150
 			VJ.MidiPad.switchOn('2')
+		Stage3d.control.radius = 500+Math.random()*1000
 		return
 
 	update:(dt)=>
@@ -68,6 +74,7 @@ class PizzaSpace extends Scene
 		return
 
 	dispose:()=>
+		VJ.onBeat.remove(@onBeat)
 		Stage3d.remove @spaceship
 		Stage3d.remove @stars
 		@pizza.dispose()
