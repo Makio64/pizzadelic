@@ -151,8 +151,20 @@ class Main
 			gundam.rotation.x = Math.PI * .5
 			# Stage3d.add gundam
 			Stage3d.models.gundam = gundam
-			@loadPizza()
+			@loadBuddha()
 		return
+
+	loadBuddha:()=>
+		new THREE.ObjectLoader().load "models/buddha.json", (scene) =>
+			Stage3d.models.buddha = scene.children[0]
+			for mesh in Stage3d.models.buddha.children
+				if mesh instanceof THREE.Mesh
+					mesh.material = new THREE.MeshLambertMaterial({
+						envMap: @envMap
+						color: 0xffe000
+					})
+			Stage3d.add Stage3d.models.buddha
+			@loadPizza()
 
 	loadPizza:()=>
 		Stage3d.models.foods = {}
