@@ -50,6 +50,8 @@ class Stage3d
 		transparent = options.transparent||false
 		antialias = options.antialias||false
 		@renderer = new THREE.WebGLRenderer({alpha:transparent,antialias:antialias,preserveDrawingBuffer:false})
+
+		console.log @renderer
 		@renderer.setPixelRatio( window.devicePixelRatio )
 		@renderer.domElement.className = 'three'
 		@setColorFromOption(options)

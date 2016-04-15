@@ -53,6 +53,8 @@ class Main
 		@custom.shader.uniforms.boost.value = 0
 		@custom.shader.uniforms.boostReduction.value = 1
 		@custom.shader.uniforms.vignetteAmount.value = 0.5
+		@custom.shader.uniforms.multiplyHorizontal.value = 3
+		@custom.shader.uniforms.multiplyVertical.value = 3
 		Stage3d.postFX = @custom.shader
 		Stage3d.addPass(@custom)
 
@@ -74,7 +76,7 @@ class Main
 		@context = new AudioContext()
 		@masterGain = @context.createGain()
 		@masterGain.gain.value = 1
-		live = true
+		live = false
 
 		if(!live)
 			@masterGain.connect(@context.destination)
