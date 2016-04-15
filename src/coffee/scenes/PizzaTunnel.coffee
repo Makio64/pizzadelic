@@ -10,27 +10,51 @@ class PizzaTunnel extends PizzaScene
 		super('Pizza Tunnel')
 		@slices = []
 		@time = 0
-		radiusStep = 7
+		radiusStep = 20
 		radius = 400
 		length = 10
 		for i in [0...length] by 1
 			for step in [0...radiusStep] by 1
-				slice = new Slice({noCheese: true})
+				slice = new Slice({noCheese: true,noFood:true})
 				angle = Math.PI*2*step/radiusStep+Math.PI/4
 				slice.position.x = Math.cos(angle)*radius
 				slice.position.y = Math.sin(angle)*radius
 				slice.lookAt(Constants.ZERO)
-				slice.position.z = i*radius
+				slice.position.z = i*radius + step*15
+				slice.initial = {}
+				slice.initial.angle = step
+				slice.initial.z = slice.position.z
 				slice.scale.multiplyScalar(.5)
 				Stage3d.add slice
 				@slices.push slice
 
 		return
 
+	transitionIn:()->
+		super()
+		Stage3d.control.phi = Math.PI/2
+		Stage3d.control.theta = Math.PI/2*3
+		Stage3d.radius = 600
+		Stage3d.scene.fog = new THREE.Fog(0x000000, 1000, 5000)
+		#  600
+		return
+
 	update:(dt)=>
 		@time += dt
+		radiusStep = 20
+		radius = 400
+		length = 10
+		# for i in [0...length] by 1
+		# 	for step in [0...radiusStep] by 1
+
 		for i in [0...@slices.length]
 			slice = @slices[i]
+			angle = Math.PI*2*slice.initial.angle/radiusStep+Math.PI/4+@time/500
+			slice.position.x = Math.cos(angle)*radius
+			slice.position.y = Math.sin(angle)*radius
+			slice.position.z = 0
+			slice.lookAt(Constants.ZERO)
+			slice.position.z = slice.initial.z
 
 			# slice.position.z -= 10
 			# for child in slice.children
