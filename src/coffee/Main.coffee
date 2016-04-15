@@ -139,8 +139,19 @@ class Main
 		loader.setDefaultTexturePath( '3d/' )
 		loader.load( '3d/miku_v2.pmd', ['3d/wavefile_v2.vmd'], ( object )=>
 			Stage3d.models.miku = object
-			@loadPizza()
+			@loadGundam()
 		)
+		return
+
+	loadGundam:()=>
+		new THREE.JSONLoader().load "models/gundam.json", (geometry, materials) =>
+			# console.log geometry, materials
+			gundam = new THREE.Mesh(geometry, new THREE.MultiMaterial(materials))
+			gundam.scale.multiplyScalar(30)
+			gundam.rotation.x = Math.PI * .5
+			# Stage3d.add gundam
+			Stage3d.models.gundam = gundam
+			@loadPizza()
 		return
 
 	loadPizza:()=>

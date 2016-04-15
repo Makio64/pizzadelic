@@ -44,6 +44,7 @@ class PizzaSpace extends PizzaScene
 		@miku.add @pizza
 		@miku.rotation.x += Math.PI/2
 		@spaceship = new THREE.Object3D()
+		@spaceship.add Stage3d.models.gundam
 		@spaceship.add @miku
 		@spaceship.add @pizza
 		Stage3d.add @spaceship
