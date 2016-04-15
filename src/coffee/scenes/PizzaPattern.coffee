@@ -1,10 +1,10 @@
-Scene = require 'makio/core/Scene'
+PizzaScene = require 'scenes/PizzaScene'
 Pizza = require 'pizza/Pizza'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
 Constants = require 'Constants'
 
-class PizzaPattern extends Scene
+class PizzaPattern extends PizzaScene
 
 	constructor:()->
 		super('PizzaPattern')

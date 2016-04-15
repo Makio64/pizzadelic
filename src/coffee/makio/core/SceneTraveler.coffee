@@ -20,7 +20,6 @@ class SceneTraveler
 
 	@to = (scene)=>
 		@nextScene = scene
-		console.log @currentScene
 		if @currentScene
 			@currentScene.transitionOut()
 		else

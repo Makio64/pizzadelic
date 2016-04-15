@@ -1,4 +1,4 @@
-Scene = require 'makio/core/Scene'
+PizzaScene = require 'scenes/PizzaScene'
 Pizza = require 'pizza/Pizza'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
@@ -7,7 +7,7 @@ VJ = require 'makio/audio/VJ'
 # require('CCDIKSolver.js')
 # require('MMDPhysics.js')
 
-class PizzaBond extends Scene
+class PizzaBond extends PizzaScene
 
 	constructor:()->
 		@time = 0

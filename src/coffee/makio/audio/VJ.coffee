@@ -12,8 +12,8 @@ class VJ
 	@levelsData = [] #levels of each frequecy - from 0 - 1 . no sound is 0. Array [levelsCount]
 	@levelHistory = []
 
-	@BEAT_HOLD_TIME = 0.5 #num of frames to hold a beat
-	@BEAT_DECAY_RATE = 0.99
+	@BEAT_HOLD_TIME = .2 #num of frames to hold a beat
+	@BEAT_DECAY_RATE = 0.96
 	@BEAT_MIN = 0.13 #level less than this is no beat
 
 	#BPM STUFF
@@ -59,7 +59,6 @@ class VJ
 		obj = {x:1,y:1}
 		@add(obj,'x',84,Midi.XL1).minMax(0,110).onChange((v)=>
 			v = Math.floor(v)
-			# console.log(v)
 			Midi.allButton(v,Midi.PAD)
 		)
 
@@ -86,7 +85,7 @@ class VJ
 			)
 		return
 
-	@update=()=>
+	@update=(dt)=>
 		if(@analyser == null)
 			return
 
@@ -102,11 +101,11 @@ class VJ
 				sum += @freqByteData[(i * @levelBins) + j]
 				@levelsData[i] = sum / @levelBins / 256
 
-		@detectBeat()
+		@detectBeat(dt)
 		@bpmTime = (new Date().getTime() - @bpmStart)/@msecsAvg
 		return
 
-	@detectBeat = ()=>
+	@detectBeat = (dt)=>
 		sum = 0
 		for j in [0...@levelsCount] by 1
 			sum += @levelsData[j]
@@ -116,17 +115,18 @@ class VJ
 		@levelHistory.push(@volume)
 		@levelHistory.shift(1)
 
+		if (@beatTime <= @BEAT_HOLD_TIME)
+			@beatTime+=dt/1000
+			return
+		else
+			@beatCutOff *= @BEAT_DECAY_RATE
+			@beatCutOff = Math.max(@beatCutOff,@BEAT_MIN)
+
 		if (@volume  > @beatCutOff && @volume > @BEAT_MIN)
 			# console.log("BEAT")
 			@onBeat.dispatch()
 			@beatCutOff = @volume *1.1
 			@beatTime = 0
-		else
-			if (@beatTime <= @BEAT_HOLD_TIME)
-				@beatTime++
-			else
-				@beatCutOff *= @BEAT_DECAY_RATE
-				@beatCutOff = Math.max(@beatCutOff,@BEAT_MIN)
 		return
 
 

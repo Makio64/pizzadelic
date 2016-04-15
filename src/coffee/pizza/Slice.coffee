@@ -5,6 +5,9 @@ Chorizo			= require('pizza/Chorizo')
 Egg			= require('pizza/Egg')
 Tomato			= require('pizza/Tomato')
 
+
+# TODO Create ObjectPool
+
 module.exports = class Slice extends Food
 	constructor:(options = {}) ->
 		super("slice")

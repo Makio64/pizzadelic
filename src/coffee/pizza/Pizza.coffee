@@ -7,6 +7,8 @@ Chorizo			= require('pizza/Chorizo')
 Egg				= require('pizza/Egg')
 Tomato			= require('pizza/Tomato')
 
+# TODO Create ObjectPool
+
 module.exports = class Pizza extends THREE.Object3D
 
 	constructor:(options = {})->
@@ -51,6 +53,8 @@ module.exports = class Pizza extends THREE.Object3D
 		return
 
 	dispose:()=>
+		for s in @slices
+			s.dispose()
 		@slices = null
 		@egg = null
 		return

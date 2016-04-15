@@ -62,6 +62,7 @@ class Stage3d
 	@setClearColor = (value)=>
 		@clearColor = value
 		@mesh.material.color = @clearColor
+		@renderer.setClearColor( @clearColor,1 )
 		return
 
 	@setColorFromOption = (options)=>
@@ -124,7 +125,7 @@ class Stage3d
 		return
 
 	@render = (dt)=>
-		@renderer.autoClearColor = @clearAuto
+		@renderer.autoClearColor = @clearColor
 		@renderer.autoClear = @clearAuto
 		@mesh.material.opacity = @clearAlpha
 

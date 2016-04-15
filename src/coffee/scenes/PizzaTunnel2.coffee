@@ -1,21 +1,20 @@
-Scene = require 'makio/core/Scene'
+PizzaScene = require 'scenes/PizzaScene'
 Pizza = require 'pizza/Pizza'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
 Constants = require 'Constants'
 
-class PizzaTunnel2 extends Scene
+class PizzaTunnel2 extends PizzaScene
 
 	constructor:()->
-		super('Pizza Tunnel')
+		super('Pizza Tunnel2')
 		@pizzas = []
 		@time = 0
 		@slicesOffset = 0
 
-		for i in [0...3]
+		for i in [0...4]
 			pizza = new Pizza({noEgg: true})
 			pizza.position.z = -i * 300
-			console.log pizza.scale.x
 			Stage3d.add pizza
 			@pizzas.push pizza
 
@@ -24,12 +23,20 @@ class PizzaTunnel2 extends Scene
 		return
 
 	onBeat: =>
-		@slicesOffset = 1
-			# pizza.scale.set(scale, scale, scale)
+		if Math.random()>.7
+			@slicesOffset = 1
+		# pizza.scale.set(scale, scale, scale)
+		if(Math.random()<.3)
+			r = Math.random()
+			if(r<.5)
+				@camera1()
+			else
+				@camera2()
 		return
 
 	update:(dt)=>
 		@time += dt
+		speed = dt/16
 
 		@slicesOffset -= .04
 		if @slicesOffset <= 0
@@ -37,8 +44,8 @@ class PizzaTunnel2 extends Scene
 
 		for i in [0...@pizzas.length]
 			pizza = @pizzas[i]
-			pizza.position.z += 4
-			pizza.rotation.z += .03
+			pizza.position.z += 4*speed
+			pizza.rotation.z += .03*speed
 
 			# pizza.scale.x += (1 - pizza.scale.x) * .1
 			# pizza.scale.set(pizza.scale.x, pizza.scale.x, pizza.scale.x)
@@ -53,11 +60,35 @@ class PizzaTunnel2 extends Scene
 				slice.position.y = Math.sin(angle) * (100 + 1000 * ratio)
 				slice.rotation.x = @slicesOffset * Math.PI * 2
 				# slice.rotation.y = @slicesOffset * Math.PI * 2
+
+		return
+
+	transitionIn:()->
+		super()
+		r = Math.random()
+		if(r<.5)
+			@camera1()
+		else
+			@camera2()
+		return
+
+	camera1:()->
+		Stage3d.control.phi = 2.428115605099083
+		Stage3d.control.theta = 1.3146014049358146
+		Stage3d.control.radius = 700
+		Stage3d.changeMaterialColor()
+		return
+
+	camera2:()->
+		Stage3d.control.phi = Math.PI/2
+		Stage3d.control.theta = Math.PI/2
+		Stage3d.control.radius = 900
+		Stage3d.changeMaterialBasicColor()
 		return
 
 	dispose:()=>
+		VJ.onBeat.remove(@onBeat)
 		for p in @pizzas
-			VJ.onBeat.remove(@onBeat)
 			Stage3d.remove p
 			p.dispose()
 		return

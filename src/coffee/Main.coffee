@@ -50,17 +50,21 @@ class Main
 		@custom.shader = WAGNER.processShader( WAGNER.basicVs, require('postFX.fs') )
 		@custom.shader.uniforms.noiseAmount.value = 0.1
 		@custom.shader.uniforms.noiseSpeed.value = 1
+		@custom.shader.uniforms.boost.value = 0
+		@custom.shader.uniforms.boostReduction.value = 1
 		@custom.shader.uniforms.vignetteAmount.value = 0.5
+		Stage3d.postFX = @custom.shader
 		Stage3d.addPass(@custom)
 
-		gui.add(@custom.shader.uniforms.noiseAmount,'value',0,1).name('noiseAmount').listen()
-		gui.add(@custom.shader.uniforms.noiseSpeed,'value',0,1).name('noiseSpeed').listen()
-		gui.add(@custom.shader.uniforms.bwRatio,'value',0,1).name('bwRatio').listen()
-		gui.add(@custom.shader.uniforms.vignetteAmount,'value',0,1).name('vignetteAmount').listen()
-		gui.add(@custom.shader.uniforms.vignetteFallOff,'value',0,1).name('vignetteFallOff').listen()
-		gui.add(@custom.shader.uniforms.invertRatio,'value',0,1).name('invertRatio').listen()
-		gui.add(@custom.shader.uniforms.mirrorX,'value',0,1).step(1).name('mirrorX').listen()
-		gui.add(@custom.shader.uniforms.mirrorY,'value',0,1).step(1).name('mirrorY').listen()
+		# gui.add(@custom.shader.uniforms.noiseAmount,'value',0,1).name('noiseAmount').listen()
+		# gui.add(@custom.shader.uniforms.noiseSpeed,'value',0,1).name('noiseSpeed').listen()
+		# gui.add(@custom.shader.uniforms.bwRatio,'value',0,1).name('bwRatio').listen()
+		# gui.add(@custom.shader.uniforms.vignetteAmount,'value',0,1).name('vignetteAmount').listen()
+		# gui.add(@custom.shader.uniforms.vignetteFallOff,'value',0,1).name('vignetteFallOff').listen()
+		# gui.add(@custom.shader.uniforms.invertRatio,'value',0,1).name('invertRatio').listen()
+		# gui.add(@custom.shader.uniforms.mirrorX,'value',0,1).step(1).name('mirrorX').listen()
+		# gui.add(@custom.shader.uniforms.mirrorY,'value',0,1).step(1).name('mirrorY').listen()
+		# gui.close()
 		# gui.add(@custom.shader.uniforms.divide4,'value',0,1).step(1).name('divide4')
 
 		# @glitchs = new WAGNER.Pass()
@@ -105,7 +109,7 @@ class Main
 		Stage.onResize.add(@resize)
 
 		# ---------------------------------------------------------------------- DEBUG
-		Stage3d.add new Sprite(@audioTexture)
+		# Stage3d.add new Sprite(@audioTexture)
 		Stage.stats.addCustom('DrawCall',Stage3d.renderer.info.render,'calls')
 		Stage.stats.addCustom('Faces',Stage3d.renderer.info.render,'faces')
 		Stage.stats.addCustom('Points',Stage3d.renderer.info.render,'points')
@@ -153,7 +157,7 @@ class Main
 			# ---------------------------------------------------------------------- CREATE 3D SCENE ELEMENTS
 
 			@scene7()
-			@camera1()
+			# @camera1()
 
 		return
 
@@ -203,7 +207,7 @@ class Main
 			MidiPad.add 'j', VJ.add({v:0},'v',67,Midi.PAD,true).onChange(@scene7)
 			# ])
 
-			# COOL SHIT
+			# COOL STUFFS
 			# VJ.addGroup([
 			MidiPad.add 'z', VJ.add({v:0},'v',51,Midi.PAD,true).onChange(@changeMaterialToGold)
 			MidiPad.add 'x', VJ.add({v:0},'v',52,Midi.PAD,true).onChange(@changeMaterialToSilver)
@@ -212,8 +216,12 @@ class Main
 			MidiPad.add 'b', VJ.add({v:0},'v',55,Midi.PAD,true).onChange(@eatSlice)
 			# ])
 
+			# DEBUG
 			Stage3d.isAuto = false
 			MidiPad.add '8', VJ.add(Stage3d,'isAuto',89,Midi.PAD,true)
+			MidiPad.add '7', VJ.add({v:0},'v',89,Midi.PAD,true).onChange(()=>
+				console.log Stage3d.control.phi, Stage3d.control.theta, Stage3d.control.radius
+			)
 
 			VJ.MidiPad = MidiPad
 		)
@@ -327,7 +335,7 @@ class Main
 
 	update:(dt)=>
 		# console.log Stage3d.control.phi, Stage3d.control.theta
-		VJ.update()
+		VJ.update(dt)
 		@audioTexture.update(VJ.freqByteData)
 		# s = Math.max(0.01,VJ.volume)
 		# s = @pizza.scale.x += (s - @pizza.scale.x)*.35

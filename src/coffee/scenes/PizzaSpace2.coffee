@@ -1,4 +1,4 @@
-Scene = require 'makio/core/Scene'
+PizzaScene = require 'scenes/PizzaScene'
 Pizza = require 'pizza/Pizza'
 Stage3d = require 'makio/core/Stage3d'
 VJ = require 'makio/audio/VJ'
@@ -10,10 +10,11 @@ Chorizo			= require('pizza/Chorizo')
 Egg				= require('pizza/Egg')
 Tomato			= require('pizza/Tomato')
 
-class PizzaSpace2 extends Scene
+class PizzaSpace2 extends PizzaScene
 
 	constructor:()->
-		super('PizzaSpace')
+		super('PizzaSpace2')
+
 
 		# Create Stars
 		@stars = new Stars(80000)
@@ -55,7 +56,7 @@ class PizzaSpace2 extends Scene
 		return
 
 	onBeat:()=>
-		@turbo = 1
+		@turbo = 1.4
 		# for food in @foods
 		# 	scale = food._scale + Math.random()
 		# 	food.scale.set(scale, scale, scale)
@@ -63,7 +64,7 @@ class PizzaSpace2 extends Scene
 
 	update:(dt)=>
 		speed = dt / 16
-		@turbo *= .9
+		@turbo *= .94
 		@stars.update(dt)
 		# @zoomBlurPass.params.strength = @turbo
 		# @zoomBlurPass.params.delta.x = 5*@turbo
@@ -73,7 +74,7 @@ class PizzaSpace2 extends Scene
 
 		for i in [0...@foods.length]
 			food = @foods[i]
-			food.position.z += 80 * (food._velocity+@turbo*25+VJ.volume) * speed
+			food.position.z += 80 * (food._velocity+@turbo*(25+VJ.volume+VJ.volume)+VJ.volume) * speed
 			food.rotation.x += food._rotation.x
 			food.rotation.y += food._rotation.y
 			food.rotation.z += food._rotation.z
@@ -88,6 +89,9 @@ class PizzaSpace2 extends Scene
 	transitionIn: () =>
 		super()
 
+		# BaseCamera
+		Stage3d.control.phi = Math.PI/2
+		Stage3d.control.theta = Math.PI/2
 		Stage3d.scene.fog = new THREE.Fog(0x000000, 10000, 40000)
 
 		# Stage3d.camera.fov = 30
@@ -100,6 +104,7 @@ class PizzaSpace2 extends Scene
 		@stars.dispose()
 		Stage3d.remove @stars
 		for food in @foods
+			food.dispose()
 			Stage3d.remove food
 		return
 

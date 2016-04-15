@@ -6,3 +6,6 @@ module.exports = class Food extends THREE.Object3D
     ref = Stage3d.models.foods[type]
     for child in ref.children
       @add new THREE.Mesh(child.geometry, child.material)
+
+  dispose:()->
+    return
