@@ -59,7 +59,7 @@ class PizzaSpace extends PizzaScene
 		# if(Math.random()>.2)
 		# 	Stage3d.changeMaterialToWireframe()
 
-		if(@gundam.visible && Math.random() < .5 or @miku.visible && Math.random() < .05)
+		if(@gundam.visible && Math.random() < .5 or @miku.visible && Math.random() < .1)
 			@miku.visible = !@miku.visible
 			@gundam.visible = !@gundam.visible
 
