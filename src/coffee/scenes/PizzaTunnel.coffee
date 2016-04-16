@@ -29,20 +29,29 @@ class PizzaTunnel extends PizzaScene
 				@slices.push slice
 
 		@buddha = Stage3d.models.buddha
-		@buddha.position.z = -100
+		@buddha.position.z = -400
 		@buddha.position.y = -40
-		Stage3d.add @buddha
 
 		VJ.onBeat.add(@onBeat)
 
 		return
 
 	onBeat: =>
-		@buddha.rotation.set(
-			-Math.PI * .5 + (Math.random() - .5) * .1
-			(Math.random() - .5) * .1
-			-Math.PI + (Math.random() - .5) * .1
-		)
+		# if(Math.random() < .5)
+		@buddha.rotation.x += (Math.random() - .5) * .2
+		@buddha.rotation.y += (Math.random() - .5) * .2
+		@buddha.rotation.z += (Math.random() - .5) * .2
+
+		scale = 1 + Math.random() * .2
+		@buddha.scale.set(scale, scale, scale)
+
+		if(Math.random() < .1)
+			@buddha.rotation.z += if Math.random() < .5 then Math.PI * 4 else -Math.PI * 4
+		# @buddha.rotation.set(
+		# 	-Math.PI * .5 + (Math.random() - .5) * .1
+		# 	(Math.random() - .5) * .1
+		# 	-Math.PI + (Math.random() - .5) * .1
+		# )
 		return
 
 	transitionIn:()->
@@ -51,6 +60,8 @@ class PizzaTunnel extends PizzaScene
 		Stage3d.control.theta = Math.PI/2*3
 		Stage3d.control.radius = 600
 		Stage3d.scene.fog = new THREE.Fog(0x000000, 500, 4000)
+
+		Stage3d.add @buddha
 		return
 
 	update:(dt)=>
@@ -58,9 +69,12 @@ class PizzaTunnel extends PizzaScene
 		radiusStep = 20
 		radius = 400
 
-		@buddha.rotation.x += (-Math.PI * .5 - @buddha.rotation.x) * .1
-		@buddha.rotation.y += - @buddha.rotation.y * .1
-		@buddha.rotation.z += - (-Math.PI - @buddha.rotation.z) * .1
+		@buddha.rotation.x += (-Math.PI * .5 - @buddha.rotation.x) * .2
+		@buddha.rotation.y += -@buddha.rotation.y * .2
+		@buddha.rotation.z += (-Math.PI - @buddha.rotation.z) * .2
+
+		@buddha.scale.x += (1 - @buddha.scale.x) * .1
+		@buddha.scale.set(@buddha.scale.x, @buddha.scale.x, @buddha.scale.x)
 		#
 		# @buddha.rotation.x = Math.PI * .5
 		# @buddha.rotation.y = Math.PI * .5
