@@ -28,7 +28,7 @@ class MidiPad
                 @touchs.push touch
 
         Interactions.onKeyDown.add(@onKeyDown)
-        document.body.appendChild(domElement)
+        # document.body.appendChild(domElement)
         return
 
     switchOn:(letter,altKey=false)=>

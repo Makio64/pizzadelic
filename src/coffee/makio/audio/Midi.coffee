@@ -17,7 +17,7 @@ class Midi
 	@init=()=>
 		@domElement = document.createElement('div')
 		@domElement.className = 'midi'
-		document.body.appendChild @domElement
+		# document.body.appendChild @domElement
 		if(navigator.requestMIDIAccess)
 			navigator.requestMIDIAccess({sysex: false}).then(@onMIDISuccess, @onMIDIFailure)
 		else
