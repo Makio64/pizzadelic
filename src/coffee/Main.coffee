@@ -53,8 +53,8 @@ class Main
 		@custom.shader.uniforms.boost.value = 0
 		@custom.shader.uniforms.boostReduction.value = 1
 		@custom.shader.uniforms.vignetteAmount.value = 0.5
-		@custom.shader.uniforms.multiplyHorizontal.value = 3
-		@custom.shader.uniforms.multiplyVertical.value = 3
+		@custom.shader.uniforms.multiplyHorizontal.value = 1
+		@custom.shader.uniforms.multiplyVertical.value = 1
 		Stage3d.postFX = @custom.shader
 		Stage3d.addPass(@custom)
 
@@ -215,10 +215,11 @@ class Main
 
 			# CAMERA
 			# VJ.addGroup([
-			MidiPad.add 'q', VJ.add({v:0},'v',71,Midi.PAD,true).onChange(@camera1)
-			MidiPad.add 'w', VJ.add({v:0},'v',72,Midi.PAD,true).onChange(@camera2)
-			MidiPad.add 'e', VJ.add({v:0},'v',73,Midi.PAD,true).onChange(@camera3)
-			MidiPad.add 'r', VJ.add({v:0},'v',74,Midi.PAD,true).onChange(@camera4)
+			MidiPad.add 'q', VJ.add({v:0},'v',71,Midi.PAD,true).onChange(@divide1)
+			MidiPad.add 'w', VJ.add({v:0},'v',72,Midi.PAD,true).onChange(@divide3)
+			MidiPad.add 'e', VJ.add({v:0},'v',73,Midi.PAD,true).onChange(@divide4)
+			MidiPad.add 'r', VJ.add({v:0},'v',74,Midi.PAD,true).onChange(@divide9)
+			MidiPad.add 't', VJ.add({v:0},'v',74,Midi.PAD,true).onChange(@divide16)
 			# ])
 
 			# SCENE VARIATION
@@ -261,6 +262,32 @@ class Main
 	eatSlice: =>
 		if(SceneTraveler.currentScene.eatSlice)
 			SceneTraveler.currentScene.eatSlice()
+		return
+
+	divide1:()=>
+		@custom.shader.uniforms.multiplyHorizontal.value = 1
+		@custom.shader.uniforms.multiplyVertical.value = 1
+		return
+
+	divide3:()=>
+		@custom.shader.uniforms.multiplyHorizontal.value = 3
+		@custom.shader.uniforms.multiplyVertical.value = 1
+		return
+
+	divide4:()=>
+		@custom.shader.uniforms.multiplyHorizontal.value = 2
+		@custom.shader.uniforms.multiplyVertical.value = 2
+		return
+
+	divide9:()=>
+		@custom.shader.uniforms.multiplyHorizontal.value = 3
+		@custom.shader.uniforms.multiplyVertical.value = 3
+		return
+
+	divide16:()=>
+		@custom.shader.uniforms.multiplyHorizontal.value = 4
+		@custom.shader.uniforms.multiplyVertical.value = 4
+		return
 
 	changeMaterialToGold: () =>
 		@changeMaterial("gold")
