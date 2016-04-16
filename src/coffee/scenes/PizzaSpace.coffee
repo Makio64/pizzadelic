@@ -44,7 +44,9 @@ class PizzaSpace extends PizzaScene
 		@miku.add @pizza
 		@miku.rotation.x += Math.PI/2
 		@spaceship = new THREE.Object3D()
-		@spaceship.add Stage3d.models.gundam
+		@gundam = Stage3d.models.gundam
+		@gundam.visible = false
+		@spaceship.add @gundam
 		@spaceship.add @miku
 		@spaceship.add @pizza
 		Stage3d.add @spaceship
@@ -56,6 +58,11 @@ class PizzaSpace extends PizzaScene
 	onBeat:()=>
 		# if(Math.random()>.2)
 		# 	Stage3d.changeMaterialToWireframe()
+
+		if(@gundam.visible && Math.random() < .5 or @miku.visible && Math.random() < .05)
+			@miku.visible = !@miku.visible
+			@gundam.visible = !@gundam.visible
+
 		if(Math.random()>.5)
 			Stage3d.changeMaterialColor()
 		if(Stage3d.isAuto)
@@ -106,6 +113,9 @@ class PizzaSpace extends PizzaScene
 		Stage3d.remove @spaceship
 		Stage3d.remove @stars
 		@pizza.dispose()
+		@spaceship = null
+		@stars = null
+		@pizza = null
 		return
 
 module.exports = PizzaSpace

@@ -86,6 +86,7 @@ class PizzaTunnel extends PizzaScene
 		return
 
 	dispose:()=>
+		VJ.onBeat.remove(@onBeat)
 		Stage3d.remove @buddha
 		for p in @slices
 			Stage3d.remove p
