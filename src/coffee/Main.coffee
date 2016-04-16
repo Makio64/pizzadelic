@@ -76,7 +76,7 @@ class Main
 		@context = new AudioContext()
 		@masterGain = @context.createGain()
 		@masterGain.gain.value = 1
-		live = false
+		live = true
 
 		if(!live)
 			@masterGain.connect(@context.destination)
