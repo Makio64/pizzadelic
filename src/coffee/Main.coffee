@@ -211,6 +211,8 @@ class Main
 			# 	# 		for mesh in food.children
 			# 	# 			mesh.material.emissiveIntensity = 1
 			# )
+			VJ.add(VJ,'BEAT_HOLD_TIME',13,Midi.XL1,true).minMax(0.1,2)
+			VJ.add(VJ,'BEAT_DECAY_RATE',14,Midi.XL1,true).minMax(0.1,2)
 
 			# CAMERA
 			# VJ.addGroup([
