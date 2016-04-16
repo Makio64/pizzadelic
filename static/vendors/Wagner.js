@@ -209,9 +209,13 @@ WAGNER.processShader = function( vertexShaderCode, fragmentShaderCode ) {
 	var regExp = /uniform\s+([^\s]+)\s+([^\s]+)\s*;/gi;
 	var regExp2 = /uniform\s+([^\s]+)\s+([^\s]+)\s*\[\s*(\w+)\s*\]*\s*;/gi;
 
+	var texture = new THREE.Texture();
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+
 	var typesMap = {
 
-		sampler2D: { type: 't', value: function() { return new THREE.Texture(); } },
+		sampler2D: { type: 't', value: function() { return texture } },
 		samplerCube: { type: 't', value: function() {} },
 
 		bool:  { type: 'b', value: function() { return 0; } },
@@ -242,10 +246,14 @@ WAGNER.processShader = function( vertexShaderCode, fragmentShaderCode ) {
 	};
 
 	var matches;
+	var texture = new THREE.Texture();
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+
 	var uniforms = {
 		resolution: { type: 'v2', value: new THREE.Vector2( 1, 1 ), default: true },
 		time: { type: 'f', value: Date.now(), default: true },
-		tInput: { type: 't', value: new THREE.Texture(), default: true }
+		tInput: { type: 't', value: texture, default: true }
 	};
 
   var uniformType, uniformName, arraySize;
@@ -359,7 +367,9 @@ WAGNER.Pass.prototype.getOfflineTexture = function( w, h, useRGBA ){
 	var rtTexture = new THREE.WebGLRenderTarget( w, h, {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
-		format: useRGBA?THREE.RGBAFormat:THREE.RGBFormat
+		format: useRGBA?THREE.RGBAFormat:THREE.RGBFormat,
+		wrapS: THREE.RepeatWrapping,
+		wrapT: THREE.RepeatWrapping
 	} );
 
 	return rtTexture;

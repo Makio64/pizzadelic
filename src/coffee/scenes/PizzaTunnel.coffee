@@ -50,17 +50,13 @@ class PizzaTunnel extends PizzaScene
 		Stage3d.control.phi = Math.PI/2
 		Stage3d.control.theta = Math.PI/2*3
 		Stage3d.radius = 600
-		Stage3d.scene.fog = new THREE.Fog(0x000000, 1000, 5000)
-		#  600
+		Stage3d.scene.fog = new THREE.Fog(0x000000, 500, 4000)
 		return
 
 	update:(dt)=>
 		@time += dt
 		radiusStep = 20
 		radius = 400
-		length = 10
-		# for i in [0...length] by 1
-		# 	for step in [0...radiusStep] by 1
 
 		@buddha.rotation.x += (-Math.PI * .5 - @buddha.rotation.x) * .1
 		@buddha.rotation.y += - @buddha.rotation.y * .1
@@ -77,7 +73,7 @@ class PizzaTunnel extends PizzaScene
 			slice.position.y = Math.sin(angle)*radius
 			slice.position.z = 0
 			slice.lookAt(Constants.ZERO)
-			slice.position.z = slice.initial.z
+			slice.position.z = slice.initial.z-@time%400
 
 			# slice.position.z -= 10
 			# for child in slice.children
