@@ -49,7 +49,7 @@ class PizzaTunnel extends PizzaScene
 		super()
 		Stage3d.control.phi = Math.PI/2
 		Stage3d.control.theta = Math.PI/2*3
-		Stage3d.radius = 600
+		Stage3d.control.radius = 600
 		Stage3d.scene.fog = new THREE.Fog(0x000000, 500, 4000)
 		return
 
