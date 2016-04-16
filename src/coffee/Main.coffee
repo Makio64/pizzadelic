@@ -163,7 +163,6 @@ class Main
 						envMap: @envMap
 						color: 0xffe000
 					})
-			Stage3d.add Stage3d.models.buddha
 			@loadPizza()
 
 	loadPizza:()=>
@@ -223,11 +222,11 @@ class Main
 			# VJ.addGroup([
 			MidiPad.add 'a', VJ.add({v:0},'v',61,Midi.PAD,true).onChange(@scene1)
 			MidiPad.add 's', VJ.add({v:0},'v',62,Midi.PAD,true).onChange(@scene2)
-			MidiPad.add 'd', VJ.add({v:0},'v',63,Midi.PAD,true).onChange(@scene3)
-			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene4)
-			MidiPad.add 'g', VJ.add({v:0},'v',65,Midi.PAD,true).onChange(@scene5)
-			MidiPad.add 'h', VJ.add({v:0},'v',66,Midi.PAD,true).onChange(@scene6)
-			MidiPad.add 'j', VJ.add({v:0},'v',67,Midi.PAD,true).onChange(@scene7)
+			MidiPad.add 'd', VJ.add({v:0},'v',63,Midi.PAD,true).onChange(@scene5)
+			MidiPad.add 'f', VJ.add({v:0},'v',64,Midi.PAD,true).onChange(@scene6)
+			MidiPad.add 'g', VJ.add({v:0},'v',65,Midi.PAD,true).onChange(@scene7)
+			# MidiPad.add 'h', VJ.add({v:0},'v',66,Midi.PAD,true).onChange(@scene8)
+			# MidiPad.add 'j', VJ.add({v:0},'v',67,Midi.PAD,true).onChange(@scene7)
 			# ])
 
 			# COOL STUFFS

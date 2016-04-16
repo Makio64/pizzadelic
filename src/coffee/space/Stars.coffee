@@ -24,7 +24,7 @@ class Stars extends THREE.Points
 			texture:   { type: "t", value: loader.load( "img/particle.jpg" ) }
 			opacity:   { type: "f", value: 1 }
 			color:     { type: "v3", value: new THREE.Vector3(1,1,1) }
-			size: 	   { type: "f", value: 5*(window.devicePixelRatio/2) }
+			size: 	   { type: "f", value: 8*(window.devicePixelRatio/2) }
 			time: 	   { type: "f", value: 0 }
 			direction: { type: "v3", value: new THREE.Vector3(0,1,0) }
 		}

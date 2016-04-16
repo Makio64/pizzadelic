@@ -28,6 +28,21 @@ class PizzaTunnel extends PizzaScene
 				Stage3d.add slice
 				@slices.push slice
 
+		@buddha = Stage3d.models.buddha
+		@buddha.position.z = -100
+		@buddha.position.y = -40
+		Stage3d.add @buddha
+
+		VJ.onBeat.add(@onBeat)
+
+		return
+
+	onBeat: =>
+		@buddha.rotation.set(
+			-Math.PI * .5 + (Math.random() - .5) * .1
+			(Math.random() - .5) * .1
+			-Math.PI + (Math.random() - .5) * .1
+		)
 		return
 
 	transitionIn:()->
@@ -46,6 +61,14 @@ class PizzaTunnel extends PizzaScene
 		length = 10
 		# for i in [0...length] by 1
 		# 	for step in [0...radiusStep] by 1
+
+		@buddha.rotation.x += (-Math.PI * .5 - @buddha.rotation.x) * .1
+		@buddha.rotation.y += - @buddha.rotation.y * .1
+		@buddha.rotation.z += - (-Math.PI - @buddha.rotation.z) * .1
+		#
+		# @buddha.rotation.x = Math.PI * .5
+		# @buddha.rotation.y = Math.PI * .5
+		# @buddha.rotation.z = Math.PI * .5
 
 		for i in [0...@slices.length]
 			slice = @slices[i]
@@ -67,6 +90,7 @@ class PizzaTunnel extends PizzaScene
 		return
 
 	dispose:()=>
+		Stage3d.remove @buddha
 		for p in @slices
 			Stage3d.remove p
 			p.dispose()
